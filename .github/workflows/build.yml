@@ -1,0 +1,41 @@
+name: Build static FFmpeg
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 1 * *"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            platform: linux/amd64
+            artifact: linux-amd64
+          - runner: ubuntu-24.04-arm
+            platform: linux/arm64
+            artifact: linux-arm64
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Build and export
+        run: |
+          make validate-lock
+          build_date=$(date -u +%Y%m%d)
+          make export \
+            PLATFORM="${{ matrix.platform }}" \
+            BUILD_ID="${GITHUB_SHA::12}" \
+            BUILD_DATE="$build_date"
+          sha256sum dist/ffmpeg-* dist/ffprobe-* > dist/SHA256SUMS
+          cp versions.lock dist/versions.lock
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ffmpeg-${{ matrix.artifact }}
+          path: dist/
+          if-no-files-found: error

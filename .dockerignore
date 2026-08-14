@@ -1,0 +1,12 @@
+.git
+.github
+.gitignore
+.DS_Store
+dist/
+*.log
+DEPENDENCIES.md
+LICENSE
+Makefile
+README.md
+update-foundations.sh
+update-lock.py

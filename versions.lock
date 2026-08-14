@@ -1,0 +1,196 @@
+{
+  "schema": 1,
+  "updated_at": "2026-08-14T16:12:00+00:00",
+  "alpine": {
+    "version": "3.24.1",
+    "digest": "sha256:28bd5fe8b56d1bd048e5babf5b10710ebe0bae67db86916198a6eec434943f8b"
+  },
+  "tools": {
+    "rust_toolchain": {
+      "version": "1.97.1"
+    },
+    "cargo_c": {
+      "version": "0.10.24"
+    },
+    "meson": {
+      "version": "1.12.0",
+      "url": "https://files.pythonhosted.org/packages/07/68/b0117422eb0a46d9d8d9e328f0c5b5c835179bfc058688bca35c90c89eba/meson-1.12.0-py3-none-any.whl",
+      "sha256": "71f133147fa0fcfe8f4df49fa1045771064947834538409e5d97b3613aac8b4e"
+    },
+    "rustup_x86_64": {
+      "url": "https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-musl/rustup-init",
+      "sha256": "9cd3fda5fd293890e36ab271af6a786ee22084b5f6c2b83fd8323cec6f0992c1"
+    },
+    "rustup_aarch64": {
+      "url": "https://static.rust-lang.org/rustup/dist/aarch64-unknown-linux-musl/rustup-init",
+      "sha256": "88761caacddb92cd79b0b1f939f3990ba1997d701a38b3e8dd6746a562f2a759"
+    }
+  },
+  "sources": {
+    "dav1d": {
+      "version": "1.5.4",
+      "revision": "1.5.4",
+      "url": "https://github.com/videolan/dav1d/archive/refs/tags/1.5.4.tar.gz",
+      "sha256": "a1d5b63d2d38ec9bd03acf643caa51fa22edd1e89c5a109c4807717216bbec07",
+      "update": "stable-release"
+    },
+    "expat": {
+      "version": "2.8.3",
+      "revision": "R_2_8_3",
+      "url": "https://github.com/libexpat/libexpat/archive/refs/tags/R_2_8_3.tar.gz",
+      "sha256": "533659a16e0184035a99fd8e783f1ad61a887a7bf8586a8681740b9d7ed42389",
+      "update": "stable-release"
+    },
+    "ffmpeg": {
+      "version": "9.0.1",
+      "revision": "n9.0.1",
+      "url": "https://github.com/FFmpeg/FFmpeg/archive/refs/tags/n9.0.1.tar.gz",
+      "sha256": "195d54bebe1a27f84d77f4b989d193466f305b355da92292766a69f16880b18a",
+      "update": "stable-release"
+    },
+    "fontconfig": {
+      "version": "2.18.3",
+      "revision": "2.18.3",
+      "url": "https://github.com/fontconfig/fontconfig/archive/refs/tags/2.18.3.tar.gz",
+      "sha256": "9ae01e1d53acdef56010c5451cd34aa41d325b2faccd8606448d8fa01b2496b3",
+      "update": "stable-release"
+    },
+    "freetype": {
+      "version": "2.14.3",
+      "revision": "VER-2-14-3",
+      "url": "https://github.com/freetype/freetype/archive/refs/tags/VER-2-14-3.tar.gz",
+      "sha256": "dc49de6b01a266eef4876a4dd34d9842c475d3e28ff2eff63bd2fb760ab56261",
+      "update": "stable-release"
+    },
+    "fribidi": {
+      "version": "1.0.16",
+      "revision": "v1.0.16",
+      "url": "https://github.com/fribidi/fribidi/archive/refs/tags/v1.0.16.tar.gz",
+      "sha256": "5a1d187a33daa58fcee2ad77f0eb9d136dd6fa4096239199ba31e850d397e8a8",
+      "update": "stable-release"
+    },
+    "harfbuzz": {
+      "version": "14.3.1",
+      "revision": "14.3.1",
+      "url": "https://github.com/harfbuzz/harfbuzz/archive/refs/tags/14.3.1.tar.gz",
+      "sha256": "05e602daf0846d7497d842807766ea32ca270f3e2c9284ce03811a2a1ed669c9",
+      "update": "stable-release"
+    },
+    "lame": {
+      "version": "4.0",
+      "revision": "4.0",
+      "url": "https://downloads.sourceforge.net/project/lame/lame/4.0/lame-4.0.tar.gz",
+      "sha256": "3df5124d5ad3a98312ffd7ba6a9b36230e4f8a3e66d3ce0f425e336c32d216eb",
+      "update": "stable-release"
+    },
+    "libaom": {
+      "version": "3.14.1",
+      "revision": "v3.14.1",
+      "url": "https://storage.googleapis.com/aom-releases/libaom-3.14.1.tar.gz",
+      "sha256": "44bf90dbd23e734d50e70a8c41c285193922938bd0d3bc2ee56764d181d55ef5",
+      "update": "stable-release"
+    },
+    "libass": {
+      "version": "0.17.5",
+      "revision": "0.17.5",
+      "url": "https://github.com/libass/libass/archive/refs/tags/0.17.5.tar.gz",
+      "sha256": "fa286fc9ee1ba3b932703a3df7b8474d01dc8abe29ec69b6fa68781dc4bf7acc",
+      "update": "stable-release"
+    },
+    "libvpx": {
+      "version": "1.16.0",
+      "revision": "v1.16.0",
+      "url": "https://github.com/webmproject/libvpx/archive/refs/tags/v1.16.0.tar.gz",
+      "sha256": "7a479a3c66b9f5d5542a4c6a1b7d3768a983b1e5c14c60a9396edc9b649e015c",
+      "update": "stable-release"
+    },
+    "libwebp": {
+      "version": "1.6.0",
+      "revision": "v1.6.0",
+      "url": "https://github.com/webmproject/libwebp/archive/refs/tags/v1.6.0.tar.gz",
+      "sha256": "93a852c2b3efafee3723efd4636de855b46f9fe1efddd607e1f42f60fc8f2136",
+      "update": "stable-release"
+    },
+    "ogg": {
+      "version": "1.3.6",
+      "revision": "v1.3.6",
+      "url": "https://downloads.xiph.org/releases/ogg/libogg-1.3.6.tar.gz",
+      "sha256": "83e6704730683d004d20e21b8f7f55dcb3383cdf84c0daedf30bde175f774638",
+      "update": "stable-release",
+      "archive": "upstream-release-tarball"
+    },
+    "openh264": {
+      "version": "2.6.0",
+      "revision": "v2.6.0",
+      "url": "https://github.com/cisco/openh264/archive/refs/tags/v2.6.0.tar.gz",
+      "sha256": "558544ad358283a7ab2930d69a9ceddf913f4a51ee9bf1bfb9e377322af81a69",
+      "update": "stable-release"
+    },
+    "openjpeg": {
+      "version": "2.5.4",
+      "revision": "v2.5.4",
+      "url": "https://github.com/uclouvain/openjpeg/archive/refs/tags/v2.5.4.tar.gz",
+      "sha256": "a695fbe19c0165f295a8531b1e4e855cd94d0875d2f88ec4b61080677e27188a",
+      "update": "stable-release"
+    },
+    "opus": {
+      "version": "1.6.1",
+      "revision": "v1.6.1",
+      "url": "https://downloads.xiph.org/releases/opus/opus-1.6.1.tar.gz",
+      "sha256": "6ffcb593207be92584df15b32466ed64bbec99109f007c82205f0194572411a1",
+      "update": "stable-release",
+      "archive": "upstream-release-tarball"
+    },
+    "rav1e": {
+      "version": "0.8.1",
+      "revision": "v0.8.1",
+      "url": "https://github.com/xiph/rav1e/archive/refs/tags/v0.8.1.tar.gz",
+      "sha256": "06d1523955fb6ed9cf9992eace772121067cca7e8926988a1ee16492febbe01e",
+      "update": "stable-release"
+    },
+    "svt_av1": {
+      "version": "4.2.0",
+      "revision": "v4.2.0",
+      "url": "https://github.com/AOMediaCodec/SVT-AV1/archive/refs/tags/v4.2.0.tar.gz",
+      "sha256": "d9cb8d5fccbed565d038ae304cb00c5610f1f62388868102ca22132e7844921b",
+      "update": "stable-release"
+    },
+    "theora": {
+      "version": "1.2.0",
+      "revision": "v1.2.0",
+      "url": "https://downloads.xiph.org/releases/theora/libtheora-1.2.0.tar.gz",
+      "sha256": "279327339903b544c28a92aeada7d0dcfd0397b59c2f368cc698ac56f515906e",
+      "update": "stable-release",
+      "archive": "upstream-release-tarball"
+    },
+    "vorbis": {
+      "version": "1.3.7",
+      "revision": "v1.3.7",
+      "url": "https://downloads.xiph.org/releases/vorbis/libvorbis-1.3.7.tar.gz",
+      "sha256": "0e982409a9c3fc82ee06e08205b1355e5c6aa4c36bca58146ef399621b0ce5ab",
+      "update": "stable-release",
+      "archive": "upstream-release-tarball"
+    },
+    "vvenc": {
+      "version": "1.14.0",
+      "revision": "v1.14.0",
+      "url": "https://github.com/fraunhoferhhi/vvenc/archive/refs/tags/v1.14.0.tar.gz",
+      "sha256": "dd43d061d59dbc0d9b9ae5b99cb40672877dd811646228938f065798939ee174",
+      "update": "stable-release"
+    },
+    "x264": {
+      "version": "b35605ace3dd",
+      "revision": "b35605ace3ddf7c1a5d67a2eb553f034aef41d55",
+      "url": "https://code.videolan.org/videolan/x264/-/archive/b35605ace3ddf7c1a5d67a2eb553f034aef41d55/x264-b35605ace3ddf7c1a5d67a2eb553f034aef41d55.tar.gz",
+      "sha256": "cd71a7515b0e9a012e1ac9b1f8415bebcaf6fc97d4db32286642ac4c0fbe24f9",
+      "update": "upstream-stable-branch"
+    },
+    "x265": {
+      "version": "4.2",
+      "revision": "4.2",
+      "url": "https://bitbucket.org/multicoreware/x265_git/get/4.2.tar.gz",
+      "sha256": "0a3d41f6b4e2fe5a49d783d6631bd1a49c44cdf999074a3ff09e2cb71ac8ed33",
+      "update": "stable-release"
+    }
+  }
+}
