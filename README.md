@@ -77,8 +77,25 @@ Static linking does not embed CA certificates, fonts, or Fontconfig configuratio
 
 ## Licensing and source obligations
 
-The repository's original build scripts and documentation are available under the [MIT License](LICENSE). This does not relicense FFmpeg or any linked dependency.
+The [MIT License](LICENSE) applies only to this repository's original build scripts and documentation. It does not apply to, or relicense, the exported `ffmpeg` and `ffprobe` binaries, FFmpeg, or any linked dependency.
 
-The x264/x265-enabled binaries, built with FFmpeg's `--enable-version3`, are distributed under GPL-3.0-or-later. See [DEPENDENCIES.md](DEPENDENCIES.md) for the dependency and license inventory. Distributors must comply with FFmpeg and every linked dependency license, including corresponding-source obligations. Preserve `versions.lock`, the build configuration printed by `ffmpeg -version`, artifact checksums, license notices, and retrievable source archives alongside each release.
+The exported binaries include GPL components such as x264 and x265 and are built with FFmpeg's `--enable-gpl --enable-version3` options. The combined binaries must therefore be distributed under **GPL-3.0-or-later**, subject also to the notices and compatible terms of their other components. OpenSSL 3 is Apache-2.0 licensed; Apache-2.0 is compatible with GPLv3, and FFmpeg 9 permits this combination when `--enable-version3` is used. The build does not use `--enable-nonfree`.
 
-A smaller `core` profile may be added later; this repository currently preserves the extended profile.
+[DEPENDENCIES.md](DEPENDENCIES.md) is an inventory, not a substitute for the complete upstream license and attribution texts. Anyone distributing the binaries is responsible for complying with FFmpeg and every statically linked dependency. Consult the [FFmpeg license documentation](https://github.com/FFmpeg/FFmpeg/blob/n9.0.1/LICENSE.md), the [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.html), and the exact license files contained in the source archives recorded by `versions.lock`.
+
+### Binary release checklist
+
+Every binary release should provide, for each architecture:
+
+1. The `ffmpeg` and `ffprobe` binaries and `SHA256SUMS`.
+2. The exact committed `versions.lock` and tagged build scripts used to produce them.
+3. `BUILDINFO.txt` containing the complete `ffmpeg -version` and `ffprobe -version` output, including the configure line.
+4. The complete GPLv3 text and the exact copyright, license, attribution, and notice files for all included components. A license-family summary alone is insufficient.
+5. Corresponding source that matches the binaries, including FFmpeg, all statically linked dependencies, applicable vendored Rust crates, local modifications, and the scripts needed to rebuild them. The safest approach is to attach this source bundle to the same GitHub release as the binaries; `versions.lock` and upstream links alone are not a durable replacement for corresponding source.
+6. A clear statement on the GitHub release page that the repository code is MIT-licensed while the distributed binaries are GPL-3.0-or-later.
+
+GitHub's automatically generated source archive contains this repository, but it does not contain the locked third-party dependency sources. Do not publish a binary release until the corresponding-source and license-notice assets are available. This project documentation is practical guidance, not legal advice.
+
+### Codec patents
+
+Some supported formats—including H.264/AVC, H.265/HEVC, AAC, and H.266/VVC—may be covered by patents. Copyright permission under an open-source license does not necessarily provide every patent authorization required for every jurisdiction, distribution model, or use case. In particular, do not assume that Cisco's patent arrangement for qualifying OpenH264 binaries distributed by Cisco automatically covers a separately built static OpenH264 binary. This project grants no patent rights beyond those expressly provided by the applicable upstream licenses. Distributors should obtain qualified legal advice for their intended markets and uses.
