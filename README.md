@@ -1,12 +1,12 @@
 # ffmpeg-musl-forge
 
-Version-locked, fully static musl-linked Linux builds of `ffmpeg` and `ffprobe` for copying into Docker images—including `scratch` images. The extended profile includes H.264/H.265, AV1, VVC, WebP/JPEG 2000, MP3/Opus/Vorbis, and the libass/Fontconfig text stack.
+Version-locked, fully static, CPU-only musl-linked Linux builds of `ffmpeg` and `ffprobe` for copying into Docker images—including `scratch` images. The extended profile includes software support for H.264/H.265, AV1, H.266/VVC, WebP/JPEG 2000, MP3/Opus/Vorbis, and the libass/Fontconfig text stack.
 
 ## Status
 
 The extended build has previously been verified on both `linux/arm64` and `linux/amd64`. The current lock must be rebuilt on both architectures after every update before publishing artifacts. Each build checks for the absence of an ELF interpreter and `NEEDED` shared-library entries before it reaches the scratch export stage.
 
-This repository builds portable CPU-only binaries. Hardware acceleration belongs in a separate platform-specific, non-static/glibc build.
+This repository builds portable CPU-only binaries. Hardware APIs and filters such as CUDA/NVENC, Vulkan, AMD AMF, VAAPI, Intel QSV, and Apple VideoToolbox are intentionally excluded because they require platform-specific drivers, frameworks, or runtime libraries. Hardware acceleration belongs in a separate platform-specific, non-static/glibc build and must not be mixed with this portable musl artifact.
 
 ## Build and export
 

@@ -1,4 +1,5 @@
 # syntax=docker/dockerfile:1.25
+# check=skip=InvalidDefaultArgInFrom
 # Supplied by the Makefile from the version and digest in versions.lock.
 # Deliberately has no fallback: builds must not silently bypass the lock.
 ARG ALPINE_IMAGE
