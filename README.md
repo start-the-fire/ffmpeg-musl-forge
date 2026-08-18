@@ -1,6 +1,6 @@
 # ffmpeg-musl-forge
 
-Version-locked, fully static, CPU-only musl-linked Linux builds of `ffmpeg` and `ffprobe` for copying into Docker images—including `scratch` images. The extended profile includes software support for H.264/H.265, AV1, H.266/VVC, WebP/JPEG 2000, MP3/Opus/Vorbis, and the libass/Fontconfig text stack.
+Version-locked, fully static, CPU-only musl-linked Linux builds of `ffmpeg` and `ffprobe` for copying into Docker images—including `scratch` images. The extended profile includes software support for H.264/H.265, AV1, H.266/VVC, WebP/JPEG 2000, MP3/Opus/Vorbis, the libass/Fontconfig text stack, and professional MXF file format support via `bmxlib`.
 
 ## Status
 
@@ -8,24 +8,42 @@ The extended build has previously been verified on both `linux/arm64` and `linux
 
 This repository builds portable CPU-only binaries. Hardware APIs and filters such as CUDA/NVENC, Vulkan, AMD AMF, VAAPI, Intel QSV, and Apple VideoToolbox are intentionally excluded because they require platform-specific drivers, frameworks, or runtime libraries. Hardware acceleration belongs in a separate platform-specific, non-static/glibc build and must not be mixed with this portable musl artifact.
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/O5W625643K)
+
 ## Build and export
 
-Docker with Buildx, GNU Make, Python 3, `jq`, and `rg` are required. On Apple Silicon, use the native ARM64 target:
+Docker with Buildx, GNU Make, Python 3, `jq`, and `rg` are required.
+
+### Apple Silicon (ARM64) - Native Build
+
+On Apple Silicon, use the native ARM64 target for optimal performance:
 
 ```sh
 make verify PLATFORM=linux/arm64 BUILD_ID=local
 make export PLATFORM=linux/arm64 BUILD_ID=local
 ```
 
-`make verify` builds the image before running its smoke tests, so a separate `make build` is optional. Use `PLATFORM=linux/amd64` for an emulated x86-64 build on an ARM Mac; it works but is substantially slower.
+### Apple Silicon (x86-64) - Emulated Build
 
-Exported filenames include the locked FFmpeg version, UTC build date, and architecture, for example `dist/ffmpeg-<version>-<YYYYMMDD>-arm64`. The build ID and date are also embedded in the suffix reported by `ffmpeg -version` and `ffprobe -version`, such as `<version>-forge-local-<YYYYMMDD>`.
+For x86-64 binaries on Apple Silicon (emulated via Rosetta; substantially slower):
+
+```sh
+make build PLATFORM=linux/amd64 BUILD_ID=local-amd64
+make export PLATFORM=linux/amd64 BUILD_ID=local-amd64
+```
+
+### Reproducible Release Builds
 
 By default `BUILD_DATE` is the current UTC date. Supply it explicitly for repeatable release metadata:
 
 ```sh
 make export PLATFORM=linux/arm64 BUILD_ID=v1 BUILD_DATE=20260814
+make export PLATFORM=linux/amd64 BUILD_ID=v1-amd64 BUILD_DATE=20260814
 ```
+
+### Build Notes
+
+`make verify` builds the image before running its smoke tests, so a separate `make build` is optional for ARM64. The exported binaries include the locked FFmpeg version, UTC build date, and architecture in the filename, for example `dist/ffmpeg-<version>-<YYYYMMDD>-arm64` or `dist/ffmpeg-<version>-<YYYYMMDD>-amd64`. The build ID and date are also embedded in the suffix reported by `ffmpeg -version` and `ffprobe -version`, such as `<version>-forge-local-<YYYYMMDD>`.
 
 The exported executables can be copied directly into a scratch image:
 
@@ -43,6 +61,23 @@ Normal builds do not discover newer upstream releases. `versions.lock` pins Alpi
 The lock makes dependency updates explicit and reviewable, but it does not promise bit-for-bit reproducible output. Alpine packages are installed from the pinned image's configured repositories, rustup downloads the selected toolchain components, and `cargo install --locked` resolves cargo-c using its published Cargo lock. Published artifacts should therefore retain the lock file, binary checksums, build configuration, and CI provenance.
 
 The Dockerfile intentionally has no default Alpine image. The Makefile reads the version and multi-architecture digest from `versions.lock` and supplies `ALPINE_IMAGE` to Buildx, so `make build`, `make verify`, `make export`, and CI all consume the same locked base image. A raw `docker build` must provide that argument explicitly; using the Make targets is recommended.
+
+## Supported Codecs and Formats
+
+For a comprehensive list of all supported video codecs, audio codecs, and file formats including MXF, IMF, QuickTime, WebM, and broadcast formats, see [CODECS_FORMATS.md](CODECS_FORMATS.md).
+
+### MXF (Material Exchange Format) Support
+
+The build includes professional broadcast support for MXF file creation and manipulation via **bmxlib** 1.7:
+
+- **MXF Standards**: SMPTE ST 377-1, SMPTE ST 378 (OP1a), SMPTE RDD 9 (XDCAM), SMPTE ST 386 (D-10)
+- **Wrapper Profiles**: AMWA AS-02, AS-10, AS-11, and Avid OPAtom
+- **Applications Included**:
+  - `raw2bmx`: Create MXF files from raw essence
+  - `bmxtranswrap`: Re-wrap MXF files
+  - `mxf2raw`: Extract metadata and essence
+  - `bmxparse`: Parse essence files
+- **Use Cases**: Post-production workflows, broadcast file-based production, archival, standards compliance
 
 To propose updates:
 

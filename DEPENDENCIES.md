@@ -27,6 +27,10 @@
 | zlib | Zlib |
 | GCC runtime libraries, including libstdc++ | GPL-3.0-or-later with GCC Runtime Library Exception |
 | Rust crates incorporated through rav1e | Per-crate licenses recorded by rav1e's locked dependency graph; collect and review exact notices for each release |
+| **bmxlib (BMX)** | **BSD-3-Clause** |
+| **libMXF** (included with bmxlib) | **BSD-3-Clause** |
+| **libMXF++** (included with bmxlib) | **BSD-3-Clause** |
+| **uriparser** | **BSD-3-Clause** |
 
 ## Release checklist
 

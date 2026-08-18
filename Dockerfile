@@ -34,6 +34,7 @@ RUN /build/build-scripts/10-audio.sh
 RUN /build/build-scripts/20-video.sh
 RUN apk add --no-cache gperf
 RUN /build/build-scripts/30-subtitles.sh
+RUN /build/build-scripts/25-formats.sh
 COPY --chmod=755 prepare-ffmpeg.sh /build/prepare-ffmpeg.sh
 RUN /build/prepare-ffmpeg.sh
 ARG BUILD_DATE=unknown
