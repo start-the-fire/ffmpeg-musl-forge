@@ -3,7 +3,7 @@ set -euo pipefail
 source /build/build-scripts/00-common.sh
 
 fetch_source x264
-cd /src/x264 && ./configure --prefix="$PREFIX" --enable-static --disable-opencl --disable-cli && make $MAKEFLAGS && make install
+cd /src/x264 && ./configure --prefix="$PREFIX" --enable-static --enable-pic --disable-opencl --disable-cli && make $MAKEFLAGS && make install
 
 fetch_source x265
 cmake_static -S /src/x265/source -B /src/x265-build -DENABLE_SHARED=OFF -DENABLE_CLI=OFF -DHIGH_BIT_DEPTH=OFF -DEXPORT_C_API=ON

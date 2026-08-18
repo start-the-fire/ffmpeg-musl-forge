@@ -11,10 +11,12 @@ cmake_static -S /src/uriparser -B /src/uriparser-build \
 ninja -C /src/uriparser-build && ninja -C /src/uriparser-build install
 
 fetch_source bmxlib
+test -f /usr/lib/libuuid.a
 cmake_static -S /src/bmxlib -B /src/bmxlib-build \
   -DBMX_BUILD_LIB_ONLY=OFF \
   -DBMX_BUILD_WITH_LIBCURL=OFF \
   -DBUILD_TESTING=OFF \
+  -Duuid_lib:FILEPATH=/usr/lib/libuuid.a \
   -DCMAKE_FIND_LIBRARY_SUFFIXES=.a \
   -DCMAKE_EXE_LINKER_FLAGS=-static
 ninja -C /src/bmxlib-build && ninja -C /src/bmxlib-build install
