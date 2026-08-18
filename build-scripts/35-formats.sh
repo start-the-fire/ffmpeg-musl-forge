@@ -14,6 +14,8 @@ fetch_source bmxlib
 cmake_static -S /src/bmxlib -B /src/bmxlib-build \
   -DBMX_BUILD_LIB_ONLY=OFF \
   -DBMX_BUILD_WITH_LIBCURL=OFF \
+  -DBUILD_TESTING=OFF \
+  -DCMAKE_FIND_LIBRARY_SUFFIXES=.a \
   -DCMAKE_EXE_LINKER_FLAGS=-static
 ninja -C /src/bmxlib-build && ninja -C /src/bmxlib-build install
 
