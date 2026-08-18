@@ -1,6 +1,6 @@
 # ffmpeg-musl-forge
 
-Version-locked, fully static, CPU-only musl-linked Linux builds of `ffmpeg` and `ffprobe` for copying into Docker images—including `scratch` images. The extended profile includes software support for H.264/H.265, AV1, H.266/VVC, WebP/JPEG 2000, MP3/Opus/Vorbis, the libass/Fontconfig text stack, and professional MXF file format support via `bmxlib`.
+Version-locked, fully static, CPU-only musl-linked Linux builds of `ffmpeg`, `ffprobe`, `raw2bmx`, and `bmxtranswrap` for copying into Docker images—including `scratch` images. The extended profile includes software support for H.264/H.265, AV1, H.266/VVC, WebP/JPEG 2000, MP3/Opus/Vorbis, the libass/Fontconfig text stack, and professional MXF file creation and rewrapping via BMX.
 
 ## Status
 
@@ -16,11 +16,46 @@ Docker with Buildx, GNU Make, Python 3, `jq`, and `rg` are required.
 
 ### Apple Silicon (ARM64) - Native Build
 
-On Apple Silicon, use the native ARM64 target for optimal performance:
+On an Apple Silicon Mac, use the native Linux ARM64 target for optimal performance.
+Docker Desktop or OrbStack runs the build inside its ARM64 Linux virtual machine,
+so no cross-compilation or CPU emulation is required.
 
 ```sh
-make verify PLATFORM=linux/arm64 BUILD_ID=local
-make export PLATFORM=linux/arm64 BUILD_ID=local
+make build PLATFORM=linux/arm64 BUILD_ID=local-arm64
+make verify PLATFORM=linux/arm64 BUILD_ID=local-arm64
+make export PLATFORM=linux/arm64 BUILD_ID=local-arm64
+```
+
+`make verify` already performs the image build, so the separate `make build`
+command is optional when verification is requested.
+
+The export produces four versioned Linux ARM64 binaries in `dist/`:
+
+```text
+ffmpeg-<version>-<YYYYMMDD>-arm64
+ffprobe-<version>-<YYYYMMDD>-arm64
+raw2bmx-<version>-<YYYYMMDD>-arm64
+bmxtranswrap-<version>-<YYYYMMDD>-arm64
+```
+
+These files are Linux ELF executables, not native macOS applications. They
+cannot be executed directly from the macOS shell. The verification target runs
+them inside the Linux ARM64 container. A built image can also be checked
+manually:
+
+```sh
+docker run --rm --platform linux/arm64 \
+  --entrypoint /ffmpeg \
+  ffmpeg-musl-forge:local-arm64 \
+  -version
+```
+
+For a release build with a fixed date:
+
+```sh
+make export PLATFORM=linux/arm64 \
+  BUILD_ID=v1.3-arm64 \
+  BUILD_DATE=20260818
 ```
 
 ### Apple Silicon (x86-64) - Emulated Build
@@ -51,6 +86,8 @@ The exported executables can be copied directly into a scratch image:
 FROM scratch
 COPY ffmpeg-<version>-<YYYYMMDD>-arm64 /ffmpeg
 COPY ffprobe-<version>-<YYYYMMDD>-arm64 /ffprobe
+COPY raw2bmx-<version>-<YYYYMMDD>-arm64 /raw2bmx
+COPY bmxtranswrap-<version>-<YYYYMMDD>-arm64 /bmxtranswrap
 ENTRYPOINT ["/ffmpeg"]
 ```
 
@@ -75,9 +112,7 @@ The build includes professional broadcast support for MXF file creation and mani
 - **Applications Included**:
   - `raw2bmx`: Create MXF files from raw essence
   - `bmxtranswrap`: Re-wrap MXF files
-  - `mxf2raw`: Extract metadata and essence
-  - `bmxparse`: Parse essence files
-- **Use Cases**: Post-production workflows, broadcast file-based production, archival, standards compliance
+- **Use Cases**: Transcoding, XDCAM HD422 creation, MXF rewrapping, broadcast file-based production, and standards-compliant delivery
 
 To propose updates:
 
@@ -104,7 +139,7 @@ Useful update commands:
 
 ## Verification
 
-The build fails if either ELF contains an interpreter or a `NEEDED` dynamic-library entry. It executes both programs and checks that the HTTPS protocol, required audio/video encoders, AV1 decoding, libass filters, ProRes, DNxHD, and ffprobe are present and usable for basic introspection. This is a feature-presence smoke test; it does not currently perform a live HTTPS download or encode sample media. CI builds native amd64 and arm64 artifacts monthly and on demand, and includes `SHA256SUMS` plus the exact lock file.
+The build fails if any exported ELF contains an interpreter or a `NEEDED` dynamic-library entry. It executes `ffmpeg`, `ffprobe`, `raw2bmx`, and `bmxtranswrap`, and checks that the HTTPS protocol, required audio/video encoders, AV1 decoding, libass filters, ProRes, and DNxHD are available. This is a feature-presence smoke test; it does not currently perform a live HTTPS download or encode sample media. CI builds native amd64 and arm64 artifacts monthly and on demand, and includes `SHA256SUMS` plus the exact lock file.
 
 ## Runtime data
 
@@ -112,7 +147,7 @@ Static linking does not embed CA certificates, fonts, or Fontconfig configuratio
 
 ## Licensing and source obligations
 
-The [MIT License](LICENSE) applies only to this repository's original build scripts and documentation. It does not apply to, or relicense, the exported `ffmpeg` and `ffprobe` binaries, FFmpeg, or any linked dependency.
+The [MIT License](LICENSE) applies only to this repository's original build scripts and documentation. It does not apply to, or relicense, the exported `ffmpeg`, `ffprobe`, `raw2bmx`, or `bmxtranswrap` binaries, FFmpeg, BMX, or any linked dependency.
 
 The exported binaries include GPL components such as x264 and x265 and are built with FFmpeg's `--enable-gpl --enable-version3` options. The combined binaries must therefore be distributed under **GPL-3.0-or-later**, subject also to the notices and compatible terms of their other components. OpenSSL 3 is Apache-2.0 licensed; Apache-2.0 is compatible with GPLv3, and FFmpeg 9 permits this combination when `--enable-version3` is used. The build does not use `--enable-nonfree`.
 
@@ -122,7 +157,7 @@ The exported binaries include GPL components such as x264 and x265 and are built
 
 Every binary release should provide, for each architecture:
 
-1. The `ffmpeg` and `ffprobe` binaries and `SHA256SUMS`.
+1. The `ffmpeg`, `ffprobe`, `raw2bmx`, and `bmxtranswrap` binaries and `SHA256SUMS`.
 2. The exact committed `versions.lock` and tagged build scripts used to produce them.
 3. `BUILDINFO.txt` containing the complete `ffmpeg -version` and `ffprobe -version` output, including the configure line.
 4. The complete GPLv3 text and the exact copyright, license, attribution, and notice files for all included components. A license-family summary alone is insufficient.

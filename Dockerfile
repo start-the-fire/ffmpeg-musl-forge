@@ -29,18 +29,26 @@ RUN set -eux; url=$(jq -er '.tools.meson.url' versions.lock); sha=$(jq -er '.too
     wheel="/tmp/$(basename "$url")"; curl --fail --location --show-error --retry 3 -o "$wheel" "$url"; \
     echo "$sha  $wheel" | sha256sum -c -; \
     pip install --break-system-packages --no-deps "$wheel"; meson --version
-COPY --chmod=755 build-scripts/ /build/build-scripts/
+COPY --chmod=755 build-scripts/00-common.sh build-scripts/10-audio.sh /build/build-scripts/
 RUN /build/build-scripts/10-audio.sh
+COPY --chmod=755 build-scripts/20-video.sh /build/build-scripts/
 RUN /build/build-scripts/20-video.sh
 RUN apk add --no-cache gperf
+COPY --chmod=755 build-scripts/30-subtitles.sh /build/build-scripts/
 RUN /build/build-scripts/30-subtitles.sh
-RUN /build/build-scripts/25-formats.sh
+RUN apk add --no-cache util-linux-dev util-linux-static
+COPY --chmod=755 build-scripts/35-formats.sh /build/build-scripts/
+RUN /build/build-scripts/35-formats.sh
 COPY --chmod=755 prepare-ffmpeg.sh /build/prepare-ffmpeg.sh
 RUN /build/prepare-ffmpeg.sh
 ARG BUILD_DATE=unknown
+COPY --chmod=755 build-scripts/90-ffmpeg.sh /build/build-scripts/
 RUN /build/build-scripts/90-ffmpeg.sh || { tail -200 /src/ffmpeg/ffbuild/config.log; exit 1; }
+COPY --chmod=755 build-scripts/99-verify.sh /build/build-scripts/
 RUN /build/build-scripts/99-verify.sh
 FROM scratch AS export
 COPY --from=build /out/ffmpeg /ffmpeg
 COPY --from=build /out/ffprobe /ffprobe
+COPY --from=build /out/raw2bmx /raw2bmx
+COPY --from=build /out/bmxtranswrap /bmxtranswrap
 ENTRYPOINT ["/ffmpeg"]

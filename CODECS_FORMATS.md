@@ -121,7 +121,7 @@ This document provides a comprehensive overview of the codecs and file formats s
 - **Audio Essence**: PCM, MP3, Opus, Vorbis
 - **Status**: ✅ Fully supported via `bmxlib` 1.7
 - **Library**: BMX (BBC/EBU maintained)
-- **Applications**: `raw2bmx`, `bmxtranswrap`, `mxf2raw`, `bmxparse`
+- **Exported Applications**: `raw2bmx`, `bmxtranswrap`
 - **Notes**: Professional broadcast standard; essential for post-production, file-based workflows
 
 ### IMF (Interoperable Master Format)

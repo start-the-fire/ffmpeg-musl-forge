@@ -32,10 +32,10 @@ jobs:
             PLATFORM="${{ matrix.platform }}" \
             BUILD_ID="${GITHUB_SHA::12}" \
             BUILD_DATE="$build_date"
-          sha256sum dist/ffmpeg-* dist/ffprobe-* > dist/SHA256SUMS
+          sha256sum dist/ffmpeg-* dist/ffprobe-* dist/raw2bmx-* dist/bmxtranswrap-* > dist/SHA256SUMS
           cp versions.lock dist/versions.lock
       - uses: actions/upload-artifact@v4
         with:
-          name: ffmpeg-${{ matrix.artifact }}
+          name: ffmpeg-bmx-${{ matrix.artifact }}
           path: dist/
           if-no-files-found: error
