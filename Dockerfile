@@ -12,7 +12,7 @@ ENV PREFIX=${PREFIX} MAKEFLAGS=${MAKEFLAGS} BUILD_ID=${BUILD_ID} \
     PATH=/opt/cargo/bin:/opt/ffmpeg/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 RUN apk add --no-cache bash curl ca-certificates jq build-base pkgconf yasm nasm \
     cmake meson ninja autoconf automake libtool python3 py3-pip perl xz tar coreutils \
-    diffutils binutils file openssl-dev openssl-libs-static zlib-dev zlib-static linux-headers
+    diffutils binutils file git openssl-dev openssl-libs-static zlib-dev zlib-static linux-headers
 WORKDIR /build
 COPY versions.lock /build/versions.lock
 RUN set -eux; arch=$(apk --print-arch); \

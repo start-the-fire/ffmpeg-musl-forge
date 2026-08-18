@@ -137,6 +137,18 @@ Useful update commands:
 | `make update-lock-all` | Run both update stages |
 | `make validate-lock` | Validate lock syntax and reject unsafe/unlocked patterns |
 
+## GitHub Actions releases
+
+The scheduled dependency workflow refreshes `versions.lock`, opens a pull
+request, and dispatches a two-architecture build for the update branch. Pull
+requests, pushes to `main`, and the monthly schedule also run the build and
+upload CI artifacts.
+
+To publish a release, push a reviewed tag beginning with `v` (for example
+`v9.0.1-forge.1`). The tag workflow builds both `linux/amd64` and
+`linux/arm64`, then publishes the four binaries, combined and per-architecture
+checksums, and the exact `versions.lock` to a GitHub Release.
+
 ## Verification
 
 The build fails if any exported ELF contains an interpreter or a `NEEDED` dynamic-library entry. It executes `ffmpeg`, `ffprobe`, `raw2bmx`, and `bmxtranswrap`, and checks that the HTTPS protocol, required audio/video encoders, AV1 decoding, libass filters, ProRes, and DNxHD are available. This is a feature-presence smoke test; it does not currently perform a live HTTPS download or encode sample media. CI builds native amd64 and arm64 artifacts monthly and on demand, and includes `SHA256SUMS` plus the exact lock file.

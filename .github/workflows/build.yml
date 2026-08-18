@@ -1,6 +1,12 @@
 name: Build static FFmpeg
 
 on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+  pull_request:
   workflow_dispatch:
   schedule:
     - cron: "17 3 1 * *"
@@ -39,3 +45,46 @@ jobs:
           name: ffmpeg-bmx-${{ matrix.artifact }}
           path: dist/
           if-no-files-found: error
+
+  release:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - name: Download amd64 artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ffmpeg-bmx-linux-amd64
+          path: release/linux-amd64
+      - name: Download arm64 artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ffmpeg-bmx-linux-arm64
+          path: release/linux-arm64
+      - name: Assemble release assets
+        run: |
+          set -eux
+          cp release/linux-amd64/versions.lock release/versions.lock
+          cp release/linux-amd64/SHA256SUMS release/SHA256SUMS-linux-amd64
+          cp release/linux-arm64/SHA256SUMS release/SHA256SUMS-linux-arm64
+          find release/linux-amd64 release/linux-arm64 -maxdepth 1 -type f \
+            ! -name 'SHA256SUMS' ! -name 'versions.lock' -exec cp {} release/ \;
+          (
+            cd release
+            sha256sum ffmpeg-* ffprobe-* raw2bmx-* bmxtranswrap-* > SHA256SUMS
+          )
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            release/ffmpeg-*
+            release/ffprobe-*
+            release/raw2bmx-*
+            release/bmxtranswrap-*
+            release/SHA256SUMS
+            release/SHA256SUMS-linux-amd64
+            release/SHA256SUMS-linux-arm64
+            release/versions.lock
