@@ -1,0 +1,51 @@
+name: Check dependency updates
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 4 * * 1"
+      timezone: "Europe/Berlin"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install update tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq ripgrep
+
+      - name: Update lock file
+        run: |
+          make update-lock-all
+          make validate-lock
+
+      - name: Create update branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet; then
+            echo "No updates found"
+            exit 0
+          fi
+
+          branch="automation/dependency-update-${GITHUB_RUN_ID}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add versions.lock
+          git commit -m "Update locked dependencies"
+          git push origin "$branch"
+
+          gh pr create \
+            --base main \
+            --head "$branch" \
+            --title "Update locked dependencies" \
+            --body "Automated dependency update. Review and test both architectures before merging."
