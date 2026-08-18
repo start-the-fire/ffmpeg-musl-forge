@@ -144,10 +144,12 @@ request, and dispatches a two-architecture build for the update branch. Pull
 requests, pushes to `main`, and the monthly schedule also run the build and
 upload CI artifacts.
 
-To publish a release, push a reviewed tag beginning with `v` (for example
-`v9.0.1-forge.1`). The tag workflow builds both `linux/amd64` and
-`linux/arm64`, then publishes the four binaries, combined and per-architecture
-checksums, and the exact `versions.lock` to a GitHub Release.
+The build workflow runs on the first day of every month. Its scheduled run
+automatically creates a tag in the form `v<FFmpeg-version>-<ddMonYY>` (for
+example, `v9.0.1-15Aug26`), builds both `linux/amd64` and `linux/arm64`, and
+publishes the four binaries, checksums, exact `versions.lock`, and a dedicated
+`RELEASE_NOTES.md` to a GitHub Release. A reviewed `v*` tag can also be pushed
+manually to publish a release immediately.
 
 ## Verification
 
