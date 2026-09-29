@@ -15,7 +15,10 @@ fetch_source libvpx
 cd /src/libvpx && ./configure --prefix="$PREFIX" --disable-shared --enable-static --disable-examples --disable-tools --disable-docs --disable-unit-tests --as=yasm && make $MAKEFLAGS && make install
 
 fetch_source libaom
-cmake_static -S /src/libaom -B /src/libaom-build -DENABLE_TESTS=OFF -DENABLE_TOOLS=OFF -DENABLE_EXAMPLES=OFF -DENABLE_DOCS=OFF -DENABLE_TESTDATA=OFF
+cmake_static -S /src/libaom -B /src/libaom-build \
+  -DCMAKE_C_FLAGS="${CFLAGS} -D_POSIX_C_SOURCE=200809L" \
+  -DCMAKE_CXX_FLAGS="${CXXFLAGS} -D_POSIX_C_SOURCE=200809L" \
+  -DENABLE_TESTS=OFF -DENABLE_TOOLS=OFF -DENABLE_EXAMPLES=OFF -DENABLE_DOCS=OFF -DENABLE_TESTDATA=OFF
 ninja -C /src/libaom-build && ninja -C /src/libaom-build install
 
 fetch_source dav1d

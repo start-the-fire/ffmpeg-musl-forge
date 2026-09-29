@@ -8,6 +8,7 @@ LOCK = os.path.join(ROOT, "versions.lock")
 GH = {
     "ogg": "xiph/ogg", "vorbis": "xiph/vorbis", "theora": "xiph/theora",
     "opus": "xiph/opus",
+    "bmxlib": "ebu/bmx", "uriparser": "uriparser/uriparser",
     "libvpx": "webmproject/libvpx",
     "dav1d": "videolan/dav1d", "svt_av1": "AOMediaCodec/SVT-AV1",
     "rav1e": "xiph/rav1e", "openh264": "cisco/openh264",
@@ -46,6 +47,9 @@ def digest(url):
 
 def version(tag):
     value = re.sub(r"^(release[-_/]|VER-|R_|v|n)", "", tag, flags=re.I)
+    match = re.search(r"[0-9]+(?:[._-][0-9]+){1,3}", value)
+    if match:
+        value = match.group(0)
     return value.replace("_", ".").replace("-", ".")
 
 def main():
