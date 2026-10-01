@@ -12,6 +12,7 @@ PKG_CONFIG='pkg-config --static' ./configure --prefix="$PREFIX" --pkg-config-fla
   --enable-libaom --enable-libdav1d --enable-libopenh264 --enable-libopenjpeg \
   --enable-librav1e --enable-libsvtav1 --enable-libtheora --enable-libvpx \
   --enable-libvvenc --enable-libwebp --enable-libx264 --enable-libx265 \
+  --enable-libjxl --enable-libzimg --enable-libvmaf \
   --enable-libmp3lame --enable-libopus --enable-libvorbis --enable-libass \
   --enable-libfreetype --enable-libfontconfig --enable-libfribidi --enable-libharfbuzz \
   --enable-encoder=prores_ks --enable-encoder=prores_aw --enable-encoder=dnxhd --enable-pic

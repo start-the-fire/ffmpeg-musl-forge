@@ -52,12 +52,33 @@ This document provides a comprehensive overview of the codecs and file formats s
 - **Library Version**: OpenJPEG 2.5.4
 - **Notes**: High-quality lossy/lossless compression; used in cinema and archival
 
+### JPEG XL
+- **Encoders**: `libjxl`
+- **Decoders**: `libjxl`
+- **Status**: ✅ Fully supported
+- **Library Version**: libjxl 0.12.0
+- **Notes**: Modern still-image and image-sequence format with lossy and lossless modes
+
 ### WebP
 - **Encoders**: `libwebp`
 - **Decoders**: `libwebp`
 - **Status**: ✅ Fully supported
 - **Library Version**: libwebp 1.6.0
 - **Notes**: Modern image format; excellent for web; supports transparency and animation
+
+## Quality and Scaling Filters
+
+### zscale
+- **Filter**: `zscale`
+- **Status**: ✅ Fully supported
+- **Library Version**: zimg 3.0.6
+- **Notes**: CPU-only high-quality scaling, colorspace conversion, and HDR transfer handling
+
+### VMAF
+- **Filter**: `libvmaf`
+- **Status**: ✅ Fully supported
+- **Library Version**: libvmaf 3.2.1
+- **Notes**: Objective perceptual video-quality measurement with built-in models
 
 ### H.266/VVC
 - **Encoders**: `libvvenc`
@@ -218,7 +239,10 @@ This document provides a comprehensive overview of the codecs and file formats s
 | SVT-AV1 | 4.2.0 |
 | rav1e | 0.8.1 |
 | OpenJPEG | 2.5.4 |
+| libjxl | 0.12.0 |
 | libwebp | 1.6.0 |
+| zimg | 3.0.6 |
+| libvmaf | 3.2.1 |
 | VVenC | 1.14.0 |
 | LAME | 4.0 |
 | Opus | 1.6.1 |

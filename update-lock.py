@@ -17,6 +17,9 @@ GH = {
     "freetype": "freetype/freetype", "harfbuzz": "harfbuzz/harfbuzz",
     "fribidi": "fribidi/fribidi", "fontconfig": "fontconfig/fontconfig",
     "libass": "libass/libass", "ffmpeg": "FFmpeg/FFmpeg",
+    "brotli": "google/brotli", "highway": "google/highway",
+    "libjxl": "libjxl/libjxl", "vmaf": "Netflix/vmaf",
+    "zimg": "sekrit-twc/zimg",
 }
 
 def request(url, binary=False):

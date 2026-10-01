@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "updated_at": "2026-09-29T07:59:17+00:00",
+  "updated_at": "2026-10-01T14:35:19Z",
   "alpine": {
     "version": "3.24.2",
     "digest": "sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6"
   },
   "tools": {
     "rust_toolchain": {
-      "version": "1.98.1"
+      "version": "1.99.0"
     },
     "cargo_c": {
       "version": "0.10.25"
@@ -32,6 +32,13 @@
       "revision": "v1.7",
       "url": "https://github.com/ebu/bmx/archive/refs/tags/v1.7.tar.gz",
       "sha256": "fbdbba241e8d0e8f30a5f8419e0f0a9059d072e58e37c761f6cd4c1c62c0edb5",
+      "update": "stable-release"
+    },
+    "brotli": {
+      "version": "1.2.0",
+      "revision": "v1.2.0",
+      "url": "https://github.com/google/brotli/archive/refs/tags/v1.2.0.tar.gz",
+      "sha256": "816c96e8e8f193b40151dad7e8ff37b1221d019dbcb9c35cd3fadbfe6477dfec",
       "update": "stable-release"
     },
     "dav1d": {
@@ -60,6 +67,13 @@
       "revision": "2.18.3",
       "url": "https://github.com/fontconfig/fontconfig/archive/refs/tags/2.18.3.tar.gz",
       "sha256": "9ae01e1d53acdef56010c5451cd34aa41d325b2faccd8606448d8fa01b2496b3",
+      "update": "stable-release"
+    },
+    "highway": {
+      "version": "1.4.0",
+      "revision": "1.4.0",
+      "url": "https://github.com/google/highway/archive/refs/tags/1.4.0.tar.gz",
+      "sha256": "e72241ac9524bb653ae52ced768b508045d4438726a303f10181a38f764a453c",
       "update": "stable-release"
     },
     "freetype": {
@@ -102,6 +116,13 @@
       "revision": "0.17.5",
       "url": "https://github.com/libass/libass/archive/refs/tags/0.17.5.tar.gz",
       "sha256": "fa286fc9ee1ba3b932703a3df7b8474d01dc8abe29ec69b6fa68781dc4bf7acc",
+      "update": "stable-release"
+    },
+    "libjxl": {
+      "version": "0.12.0",
+      "revision": "v0.12.0",
+      "url": "https://github.com/libjxl/libjxl/archive/refs/tags/v0.12.0.tar.gz",
+      "sha256": "03e9be69a30be4011f559da75328b6d7cea8ad921fabfbd551ce10bf45cdc992",
       "update": "stable-release"
     },
     "libvpx": {
@@ -177,6 +198,13 @@
       "sha256": "2dadd117a27919db41b84dff1ec7e3347fae8e09cfbb868505f2ff44287b57bf",
       "update": "stable-release"
     },
+    "vmaf": {
+      "version": "3.2.1",
+      "revision": "v3.2.1",
+      "url": "https://github.com/Netflix/vmaf/archive/refs/tags/v3.2.1.tar.gz",
+      "sha256": "5df7386911bc15fd1ca783132528748d219768ae4fc5f8e0b61184f041648092",
+      "update": "stable-release"
+    },
     "vorbis": {
       "version": "1.3.7",
       "revision": "v1.3.7",
@@ -190,6 +218,13 @@
       "revision": "v1.14.0",
       "url": "https://github.com/fraunhoferhhi/vvenc/archive/refs/tags/v1.14.0.tar.gz",
       "sha256": "dd43d061d59dbc0d9b9ae5b99cb40672877dd811646228938f065798939ee174",
+      "update": "stable-release"
+    },
+    "zimg": {
+      "version": "3.0.6",
+      "revision": "release-3.0.6",
+      "url": "https://github.com/sekrit-twc/zimg/archive/refs/tags/release-3.0.6.tar.gz",
+      "sha256": "be89390f13a5c9b2388ce0f44a5e89364a20c1c57ce46d382b1fcc3967057577",
       "update": "stable-release"
     },
     "x264": {

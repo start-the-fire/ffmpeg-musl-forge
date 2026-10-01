@@ -80,12 +80,12 @@ jobs:
             git push origin "$tag"
           fi
       - name: Download amd64 artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: ffmpeg-bmx-linux-amd64
           path: release/linux-amd64
       - name: Download arm64 artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: ffmpeg-bmx-linux-arm64
           path: release/linux-arm64

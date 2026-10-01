@@ -1,6 +1,6 @@
 # ffmpeg-musl-forge
 
-Version-locked, fully static, CPU-only musl-linked Linux builds of `ffmpeg`, `ffprobe`, `raw2bmx`, and `bmxtranswrap` for copying into Docker images—including `scratch` images. The extended profile includes software support for H.264/H.265, AV1, H.266/VVC, WebP/JPEG 2000, MP3/Opus/Vorbis, the libass/Fontconfig text stack, and professional MXF file creation and rewrapping via BMX.
+Version-locked, fully static, CPU-only musl-linked Linux builds of `ffmpeg`, `ffprobe`, `raw2bmx`, and `bmxtranswrap` for copying into Docker images—including `scratch` images. The extended profile includes software support for H.264/H.265, AV1, H.266/VVC, JPEG XL, WebP/JPEG 2000, MP3/Opus/Vorbis, the libass/Fontconfig text stack, zscale and libvmaf quality analysis, and professional MXF file creation and rewrapping via BMX.
 
 ## Status
 
@@ -153,7 +153,7 @@ manually to publish a release immediately.
 
 ## Verification
 
-The build fails if any exported ELF contains an interpreter or a `NEEDED` dynamic-library entry. It executes `ffmpeg`, `ffprobe`, `raw2bmx`, and `bmxtranswrap`, and checks that the HTTPS protocol, required audio/video encoders, AV1 decoding, libass filters, ProRes, and DNxHD are available. This is a feature-presence smoke test; it does not currently perform a live HTTPS download or encode sample media. CI builds native amd64 and arm64 artifacts monthly and on demand, and includes `SHA256SUMS` plus the exact lock file.
+The build fails if any exported ELF contains an interpreter or a `NEEDED` dynamic-library entry. It executes `ffmpeg`, `ffprobe`, `raw2bmx`, and `bmxtranswrap`, and checks that the HTTPS protocol, required audio/video encoders, AV1 decoding, JPEG XL, libass, zscale, libvmaf, ProRes, and DNxHD are available. This is a feature-presence smoke test; it does not currently perform a live HTTPS download or encode sample media. CI builds native amd64 and arm64 artifacts monthly and on demand, and includes `SHA256SUMS` plus the exact lock file.
 
 ## Runtime data
 

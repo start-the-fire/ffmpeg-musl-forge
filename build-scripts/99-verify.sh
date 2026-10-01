@@ -19,6 +19,10 @@ has "$decoders" '(^|[[:space:]])libdav1d([[:space:]]|$)' 'dav1d AV1 decoder'
 filters=$($ffmpeg -hide_banner -filters 2>&1)
 has "$filters" '(^|[[:space:]])ass([[:space:]]|$)' 'libass subtitle filter'
 has "$filters" '(^|[[:space:]])subtitles([[:space:]]|$)' 'subtitle rendering filter'
+has "$filters" '(^|[[:space:]])zscale([[:space:]]|$)' 'zscale filter'
+has "$filters" '(^|[[:space:]])libvmaf([[:space:]]|$)' 'libvmaf filter'
+has "$encoders" '(^|[[:space:]])libjxl([[:space:]]|$)' 'JPEG XL encoder'
+has "$decoders" '(^|[[:space:]])libjxl([[:space:]]|$)' 'JPEG XL decoder'
 /out/ffprobe -v error -show_program_version -of json >/tmp/ffprobe.json
 grep -q program_version /tmp/ffprobe.json
 /out/raw2bmx --help >/dev/null

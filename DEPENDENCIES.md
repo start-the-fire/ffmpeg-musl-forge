@@ -31,6 +31,11 @@
 | **libMXF** (included with bmxlib) | **BSD-3-Clause** |
 | **libMXF++** (included with bmxlib) | **BSD-3-Clause** |
 | **uriparser** | **BSD-3-Clause** |
+| libjxl | BSD-3-Clause |
+| Highway | Apache-2.0 |
+| Brotli | MIT |
+| zimg | WTFPL |
+| libvmaf | BSD-2-Clause-Patent |
 
 ## Release checklist
 
