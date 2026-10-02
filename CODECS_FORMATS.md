@@ -8,7 +8,7 @@ This document provides a comprehensive overview of the codecs and file formats s
 - **Encoders**: `libsvtav1`, `librav1e`, `libaom`
 - **Decoders**: `libdav1d`
 - **Status**: ✅ Fully supported
-- **Library Versions**: SVT-AV1 4.2.0, rav1e 0.8.1, libdav1d 1.5.4, libaom 3.14.1
+- **Library Versions**: SVT-AV1 4.2.0, rav1e 0.8.1, libdav1d 1.5.4, libaom 3.15.1
 - **Notes**: Multiple encoding options available; dav1d decoder is optimized for performance
 
 ### H.264/AVC
@@ -29,7 +29,7 @@ This document provides a comprehensive overview of the codecs and file formats s
 - **Encoders**: `libvpx`
 - **Decoders**: `libvpx` (VP8), `libvpx-vp9` (VP9)
 - **Status**: ✅ Fully supported
-- **Library Version**: libvpx 1.16.0
+- **Library Version**: libvpx 1.17.0
 - **Notes**: Open source codec; VP9 supports 4K and high frame rates
 
 ### Theora
@@ -180,19 +180,29 @@ This document provides a comprehensive overview of the codecs and file formats s
 
 ### Font Rendering Stack
 - **FreeType**: 2.14.3 (font rasterization)
-- **HarfBuzz**: 14.3.1 (text shaping)
+- **HarfBuzz**: 14.5.0 (text shaping)
 - **Fontconfig**: 2.18.3 (font configuration)
-- **FriBidi**: 1.0.16 (bidirectional text)
+- **FriBidi**: 1.0.17 (bidirectional text)
 - **Status**: ✅ Fully supported
 - **Notes**: Enables complex text rendering with international language support
+
+## Supporting Libraries
+
+These are linked in as dependencies of the libraries above rather than exposed directly through FFmpeg.
+
+- **Expat**: 2.8.5 (XML parsing for Fontconfig)
+- **Highway**: 1.4.0 (portable SIMD for libjxl)
+- **Brotli**: 1.2.0 (compression for libjxl)
+- **LCMS2**: 2.19.1 (color management for libjxl)
 
 ## Build Characteristics
 
 ### Compilation Details
-- **Base Image**: Alpine Linux 3.24.1 (musl libc)
+- **Base Image**: Alpine Linux 3.24.2 (musl libc)
 - **Link Type**: Fully static (no shared library dependencies)
 - **Platform Support**: Linux (x86_64, ARM64)
-- **Build System**: CMake with Ninja
+- **Build Orchestration**: Docker Buildx with GNU Make
+- **Dependency Build Systems**: CMake/Ninja, Meson/Ninja, Autotools/Make, and Cargo/cargo-c
 - **CPU-Only**: No hardware acceleration (by design)
 
 ### Capabilities
@@ -230,11 +240,11 @@ This document provides a comprehensive overview of the codecs and file formats s
 
 | Component | Version |
 |-----------|---------|
-| FFmpeg | 9.0.1 |
+| FFmpeg | 9.0.2 |
 | x264 | Stable branch (b35605ace3dd) |
 | x265 | 4.2 |
-| libvpx | 1.16.0 |
-| libaom | 3.14.1 |
+| libvpx | 1.17.0 |
+| libaom | 3.15.1 |
 | dav1d | 1.5.4 |
 | SVT-AV1 | 4.2.0 |
 | rav1e | 0.8.1 |
@@ -249,17 +259,22 @@ This document provides a comprehensive overview of the codecs and file formats s
 | libvorbis | 1.3.7 |
 | libass | 0.17.5 |
 | FreeType | 2.14.3 |
-| HarfBuzz | 14.3.1 |
+| HarfBuzz | 14.5.0 |
 | Fontconfig | 2.18.3 |
-| FriBidi | 1.0.16 |
+| FriBidi | 1.0.17 |
 | OpenH264 | 2.6.0 |
 | libtheora | 1.2.0 |
 | libogg | 1.3.6 |
-| **bmxlib** | **1.7** |
-| **libMXF** | Bundled with bmxlib |
-| **uriparser** | **1.0.2** |
+| Expat | 2.8.5 |
+| Highway | 1.4.0 |
+| Brotli | 1.2.0 |
+| LCMS2 | 2.19.1 |
+| bmxlib | 1.7 |
+| libMXF | Bundled with bmxlib |
+| uriparser | 1.0.2 |
 
 ---
 
-**Last Updated**: 2026-08-18
+**Last Updated**: 2026-10-02
+
 **Build Model**: ffmpeg-musl-forge extended profile

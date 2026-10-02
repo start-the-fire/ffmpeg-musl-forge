@@ -10,14 +10,14 @@
 | ogg, vorbis, theora, opus | BSD-style |
 | libvpx, libaom | BSD-style |
 | dav1d, rav1e | BSD-2-Clause |
-| SVT-AV1 | BSD-3-Clause |
+| SVT-AV1 | BSD-3-Clause-Clear |
 | OpenH264 | BSD-2-Clause |
 | OpenJPEG | BSD-2-Clause |
 | WebP | BSD-3-Clause |
-| VVenC | BSD-3-Clause |
+| VVenC | BSD-3-Clause-Clear |
 | LAME | LGPL-2.0-or-later |
 | Expat | MIT |
-| FreeType | FreeType License or GPL-2.0-only |
+| FreeType | FreeType License or GPL-2.0-or-later |
 | HarfBuzz | MIT-style |
 | FriBidi | LGPL-2.1-or-later |
 | Fontconfig | MIT-style |
@@ -31,8 +31,10 @@
 | **libMXF** (included with bmxlib) | **BSD-3-Clause** |
 | **libMXF++** (included with bmxlib) | **BSD-3-Clause** |
 | **uriparser** | **BSD-3-Clause** |
+| libuuid (util-linux, linked into bmxlib) | BSD-3-Clause |
 | libjxl | BSD-3-Clause |
-| Highway | Apache-2.0 |
+| LCMS2 | MIT |
+| Highway | Apache-2.0 or BSD-3-Clause |
 | Brotli | MIT |
 | zimg | WTFPL |
 | libvmaf | BSD-2-Clause-Patent |

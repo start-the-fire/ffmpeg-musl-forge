@@ -146,7 +146,7 @@ upload CI artifacts.
 
 The build workflow runs on the first day of every month. Its scheduled run
 automatically creates a tag in the form `v<FFmpeg-version>-<ddMonYY>` (for
-example, `v9.0.1-15Aug26`), builds both `linux/amd64` and `linux/arm64`, and
+example, `v9.0.2-1Oct26`), builds both `linux/amd64` and `linux/arm64`, and
 publishes the four binaries, checksums, exact `versions.lock`, and a dedicated
 `RELEASE_NOTES.md` to a GitHub Release. A reviewed `v*` tag can also be pushed
 manually to publish a release immediately.
@@ -165,7 +165,7 @@ The [MIT License](LICENSE) applies only to this repository's original build scri
 
 The exported binaries include GPL components such as x264 and x265 and are built with FFmpeg's `--enable-gpl --enable-version3` options. The combined binaries must therefore be distributed under **GPL-3.0-or-later**, subject also to the notices and compatible terms of their other components. OpenSSL 3 is Apache-2.0 licensed; Apache-2.0 is compatible with GPLv3, and FFmpeg 9 permits this combination when `--enable-version3` is used. The build does not use `--enable-nonfree`.
 
-[DEPENDENCIES.md](DEPENDENCIES.md) is an inventory, not a substitute for the complete upstream license and attribution texts. Anyone distributing the binaries is responsible for complying with FFmpeg and every statically linked dependency. Consult the [FFmpeg license documentation](https://github.com/FFmpeg/FFmpeg/blob/n9.0.1/LICENSE.md), the [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.html), and the exact license files contained in the source archives recorded by `versions.lock`.
+[DEPENDENCIES.md](DEPENDENCIES.md) is an inventory, not a substitute for the complete upstream license and attribution texts. Anyone distributing the binaries is responsible for complying with FFmpeg and every statically linked dependency. Consult the [FFmpeg license documentation](https://github.com/FFmpeg/FFmpeg/blob/n9.0.2/LICENSE.md), the [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.html), and the exact license files contained in the source archives recorded by `versions.lock`.
 
 ### Binary release checklist
 

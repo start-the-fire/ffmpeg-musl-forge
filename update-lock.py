@@ -18,6 +18,7 @@ GH = {
     "fribidi": "fribidi/fribidi", "fontconfig": "fontconfig/fontconfig",
     "libass": "libass/libass", "ffmpeg": "FFmpeg/FFmpeg",
     "brotli": "google/brotli", "highway": "google/highway",
+    "lcms2": "mm2/Little-CMS",
     "libjxl": "libjxl/libjxl", "vmaf": "Netflix/vmaf",
     "zimg": "sekrit-twc/zimg",
 }

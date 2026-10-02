@@ -14,6 +14,13 @@ cmake_static -S /src/brotli -B /src/brotli-build \
   -DBROTLI_BUILD_TOOLS=OFF -DBROTLI_DISABLE_TESTS=ON
 ninja -C /src/brotli-build && ninja -C /src/brotli-build install
 
+# libjxl requires LCMS2 when its compact skcms path is disabled.
+fetch_source lcms2
+cmake_static -S /src/lcms2 -B /src/lcms2-build \
+  -DLCMS2_BUILD_SHARED=OFF -DLCMS2_BUILD_STATIC=ON \
+  -DLCMS2_BUILD_TOOLS=OFF -DLCMS2_BUILD_TESTS=OFF
+ninja -C /src/lcms2-build && ninja -C /src/lcms2-build install
+
 # Omit tools, tests, viewers, and optional integrations from libjxl.
 fetch_source libjxl
 cmake_static -S /src/libjxl -B /src/libjxl-build \

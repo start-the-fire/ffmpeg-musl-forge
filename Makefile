@@ -13,7 +13,7 @@ build: validate-lock
 	docker buildx build --load --platform $(PLATFORM) --build-arg BUILD_ID=$(BUILD_ID) --build-arg BUILD_DATE=$(BUILD_DATE) --build-arg ALPINE_IMAGE=$(ALPINE_IMAGE) -t $(IMAGE):$(BUILD_ID) .
 export: validate-lock
 	mkdir -p dist
-	@tmp=$$(mktemp -d); trap 'rm -rf "$$tmp"' EXIT; \
+	@set -eu; tmp=$$(mktemp -d); trap 'rm -rf "$$tmp"' EXIT; \
 	  docker buildx build --platform $(PLATFORM) --build-arg BUILD_ID=$(BUILD_ID) --build-arg BUILD_DATE=$(BUILD_DATE) --build-arg ALPINE_IMAGE=$(ALPINE_IMAGE) --target export --output type=local,dest="$$tmp" .; \
 	  install -m 755 "$$tmp/ffmpeg" "dist/ffmpeg-$(FFMPEG_VERSION)-$(BUILD_DATE)-$(ARTIFACT_ARCH)"; \
 	  install -m 755 "$$tmp/ffprobe" "dist/ffprobe-$(FFMPEG_VERSION)-$(BUILD_DATE)-$(ARTIFACT_ARCH)"; \
