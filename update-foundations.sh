@@ -46,9 +46,15 @@ rust_metadata=$(get https://static.rust-lang.org/dist/channel-rust-stable.toml)
 rust_version=$(awk '/^\[pkg.rust\]$/ {found=1; next} found && /^version =/ {gsub(/"/, "", $3); print $3; exit}' <<<"$rust_metadata")
 [[ "$rust_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
 
-cargo_c_full=$(get https://crates.io/api/v1/crates/cargo-c | jq -er .crate.max_stable_version)
-cargo_c_version=${cargo_c_full%%+*}
+# Use GitHub releases rather than crates.io: the prebuilt binaries are only published there.
+cargo_c_tag=$(get https://api.github.com/repos/lu-zero/cargo-c/releases/latest | jq -er .tag_name)
+cargo_c_version=${cargo_c_tag#v}
 [[ "$cargo_c_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]
+cargo_c_base="https://github.com/lu-zero/cargo-c/releases/download/$cargo_c_tag"
+cargo_c_x86_url="$cargo_c_base/cargo-c-x86_64-unknown-linux-musl.tar.gz"
+cargo_c_arm_url="$cargo_c_base/cargo-c-aarch64-unknown-linux-musl.tar.gz"
+cargo_c_x86_sha256=$(sha256_url "$cargo_c_x86_url")
+cargo_c_arm_sha256=$(sha256_url "$cargo_c_arm_url")
 
 lame_metadata=$(get https://sourceforge.net/projects/lame/best_release.json)
 lame_path=$(jq -er '.release.filename | select(test("^/lame/[0-9]+(\\.[0-9]+)*/lame-[0-9]+(\\.[0-9]+)*\\.tar\\.gz$"))' <<<"$lame_metadata")
@@ -69,6 +75,10 @@ jq \
   --arg alpine_digest "$alpine_digest" \
   --arg rust_version "$rust_version" \
   --arg cargo_c_version "$cargo_c_version" \
+  --arg cargo_c_x86_url "$cargo_c_x86_url" \
+  --arg cargo_c_x86_sha256 "$cargo_c_x86_sha256" \
+  --arg cargo_c_arm_url "$cargo_c_arm_url" \
+  --arg cargo_c_arm_sha256 "$cargo_c_arm_sha256" \
   --arg rustup_x86_sha256 "$rustup_x86_sha256" \
   --arg rustup_arm_sha256 "$rustup_arm_sha256" \
   --arg lame_version "$lame_version" \
@@ -78,6 +88,8 @@ jq \
    | .alpine = {version: $alpine_version, digest: $alpine_digest}
    | .tools.rust_toolchain.version = $rust_version
    | .tools.cargo_c.version = $cargo_c_version
+   | .tools.cargo_c_x86_64 = {url: $cargo_c_x86_url, sha256: $cargo_c_x86_sha256}
+   | .tools.cargo_c_aarch64 = {url: $cargo_c_arm_url, sha256: $cargo_c_arm_sha256}
    | .tools.rustup_x86_64.sha256 = $rustup_x86_sha256
    | .tools.rustup_aarch64.sha256 = $rustup_arm_sha256
    | .sources.lame = {

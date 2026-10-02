@@ -12,6 +12,14 @@
     "cargo_c": {
       "version": "0.10.25"
     },
+    "cargo_c_x86_64": {
+      "url": "https://github.com/lu-zero/cargo-c/releases/download/v0.10.25/cargo-c-x86_64-unknown-linux-musl.tar.gz",
+      "sha256": "2fbf0d1b56a9a0b52431c2a159d9544b4b0729f2eabaed3904a41cce0e8cd4b0"
+    },
+    "cargo_c_aarch64": {
+      "url": "https://github.com/lu-zero/cargo-c/releases/download/v0.10.25/cargo-c-aarch64-unknown-linux-musl.tar.gz",
+      "sha256": "8df4475f48d7dc4d6a7fcd60bf96d569e5dabc24dce98a4a189419822c594257"
+    },
     "meson": {
       "version": "1.12.1",
       "url": "https://files.pythonhosted.org/packages/57/99/36cd25f9598eef70db97577440a70a360af505f6f01c2338a18d1556079c/meson-1.12.1-py3-none-any.whl",

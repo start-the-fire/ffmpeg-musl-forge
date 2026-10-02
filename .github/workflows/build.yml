@@ -31,11 +31,22 @@ jobs:
     steps:
       - uses: actions/checkout@v5
       - uses: docker/setup-buildx-action@v4
+      # Exposes the cache token that buildx needs for type=gha.
+      - uses: crazy-max/ghaction-github-runtime@v4
       - name: Build and export
         run: |
           make validate-lock
           build_date=$(date -u +%Y%m%d)
+          scope="ffmpeg-${{ matrix.artifact }}"
+          cache_args="--cache-to type=gha,mode=max,scope=$scope,ignore-error=true"
+          if [[ "$GITHUB_EVENT_NAME" == "schedule" ]]; then
+            # Monthly release: rebuild from scratch for fresh Alpine packages, then refresh the cache.
+            cache_args="--no-cache $cache_args"
+          else
+            cache_args="--cache-from type=gha,scope=$scope $cache_args"
+          fi
           make export \
+            CACHE_ARGS="$cache_args" \
             PLATFORM="${{ matrix.platform }}" \
             BUILD_ID="${GITHUB_SHA::12}" \
             BUILD_DATE="$build_date"
@@ -80,12 +91,12 @@ jobs:
             git push origin "$tag"
           fi
       - name: Download amd64 artifacts
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: ffmpeg-bmx-linux-amd64
           path: release/linux-amd64
       - name: Download arm64 artifacts
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: ffmpeg-bmx-linux-arm64
           path: release/linux-arm64
@@ -101,7 +112,7 @@ jobs:
             cd release
             sha256sum ffmpeg-* ffprobe-* raw2bmx-* bmxtranswrap-* > SHA256SUMS
           )
-          cat > release/RELEASE_NOTES.md <<EOF
+          cat > release/RELEASE_NOTES.md <<'EOF'
           # FFmpeg Musl Forge ${{ steps.metadata.outputs.tag }}
 
           FFmpeg ${{ steps.metadata.outputs.ffmpeg_version }} static musl binaries,

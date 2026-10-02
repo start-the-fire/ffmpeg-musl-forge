@@ -2,6 +2,8 @@ IMAGE ?= ffmpeg-musl-forge
 PLATFORM ?= linux/arm64
 BUILD_ID ?= dev
 BUILD_DATE ?= $(shell date -u +%Y%m%d)
+# Extra buildx flags, e.g. --cache-from/--cache-to (set by CI).
+CACHE_ARGS ?=
 ALPINE_VERSION := $(shell python3 -c 'import json; print(json.load(open("versions.lock"))["alpine"]["version"])')
 ALPINE_DIGEST := $(shell python3 -c 'import json; print(json.load(open("versions.lock"))["alpine"].get("digest", ""))')
 ALPINE_IMAGE := alpine:$(ALPINE_VERSION)$(if $(ALPINE_DIGEST),@$(ALPINE_DIGEST),)
@@ -10,11 +12,11 @@ BMX_VERSION := $(shell python3 -c 'import json; print(json.load(open("versions.l
 ARTIFACT_ARCH := $(patsubst linux/%,%,$(PLATFORM))
 .PHONY: build export verify update-foundations update-lock update-lock-all validate-lock clean
 build: validate-lock
-	docker buildx build --load --platform $(PLATFORM) --build-arg BUILD_ID=$(BUILD_ID) --build-arg BUILD_DATE=$(BUILD_DATE) --build-arg ALPINE_IMAGE=$(ALPINE_IMAGE) -t $(IMAGE):$(BUILD_ID) .
+	docker buildx build $(CACHE_ARGS) --load --platform $(PLATFORM) --build-arg BUILD_ID=$(BUILD_ID) --build-arg BUILD_DATE=$(BUILD_DATE) --build-arg ALPINE_IMAGE=$(ALPINE_IMAGE) -t $(IMAGE):$(BUILD_ID) .
 export: validate-lock
 	mkdir -p dist
 	@set -eu; tmp=$$(mktemp -d); trap 'rm -rf "$$tmp"' EXIT; \
-	  docker buildx build --platform $(PLATFORM) --build-arg BUILD_ID=$(BUILD_ID) --build-arg BUILD_DATE=$(BUILD_DATE) --build-arg ALPINE_IMAGE=$(ALPINE_IMAGE) --target export --output type=local,dest="$$tmp" .; \
+	  docker buildx build $(CACHE_ARGS) --platform $(PLATFORM) --build-arg BUILD_ID=$(BUILD_ID) --build-arg BUILD_DATE=$(BUILD_DATE) --build-arg ALPINE_IMAGE=$(ALPINE_IMAGE) --target export --output type=local,dest="$$tmp" .; \
 	  install -m 755 "$$tmp/ffmpeg" "dist/ffmpeg-$(FFMPEG_VERSION)-$(BUILD_DATE)-$(ARTIFACT_ARCH)"; \
 	  install -m 755 "$$tmp/ffprobe" "dist/ffprobe-$(FFMPEG_VERSION)-$(BUILD_DATE)-$(ARTIFACT_ARCH)"; \
 	  install -m 755 "$$tmp/raw2bmx" "dist/raw2bmx-$(BMX_VERSION)-$(BUILD_DATE)-$(ARTIFACT_ARCH)"; \

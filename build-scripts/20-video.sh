@@ -6,6 +6,8 @@ fetch_source x264
 cd /src/x264 && ./configure --prefix="$PREFIX" --enable-static --enable-pic --disable-opencl --disable-cli && make $MAKEFLAGS && make install
 
 fetch_source x265
+# Release tarballs can ship a stale x265Version.txt (4.2 still says 4.0); x265 embeds this string in every stream it encodes.
+printf 'releasetag: %s\nreleasetagdistance: 0\nrepositorychangeset: %s\n' "$(lock x265 version)" "$(lock x265 revision)" > /src/x265/x265Version.txt
 cmake_static -S /src/x265/source -B /src/x265-build -DENABLE_SHARED=OFF -DENABLE_CLI=OFF -DHIGH_BIT_DEPTH=OFF -DEXPORT_C_API=ON
 ninja -C /src/x265-build && ninja -C /src/x265-build install
 # Upstream's generated file is authoritative; only supply one for releases that omit it.
@@ -51,6 +53,7 @@ cmake_static -S /src/vvenc -B /src/vvenc-build -DVVENC_ENABLE_APP=OFF
 ninja -C /src/vvenc-build && ninja -C /src/vvenc-build install
 install_pc_if_missing "$PREFIX/lib/pkgconfig/vvenc.pc" vvenc "Fraunhofer VVenC VVC encoder" "$(lock vvenc version)" -lvvenc "-lstdc++ -lpthread -lm"
 
-printf '%s\n' '#include <x265.h>' 'int main(){x265_param p; x265_param_default(&p);}' >/tmp/x265-test.cpp
+printf '%s\n' '#include <x265.h>' '#include <cstdio>' 'int main(){x265_param p; x265_param_default(&p); std::puts(x265_version_str);}' >/tmp/x265-test.cpp
 c++ -O2 -I"$PREFIX/include" /tmp/x265-test.cpp $(pkg-config --libs --static x265) -o /tmp/x265-test
-/tmp/x265-test
+x265_reported=$(/tmp/x265-test)
+test "$x265_reported" = "$(lock x265 version)" || { echo "x265 reports version '$x265_reported', expected '$(lock x265 version)'" >&2; exit 1; }

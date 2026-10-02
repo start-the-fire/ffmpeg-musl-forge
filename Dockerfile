@@ -6,8 +6,7 @@ ARG ALPINE_IMAGE
 FROM ${ALPINE_IMAGE} AS build
 ARG PREFIX=/opt/ffmpeg
 ARG MAKEFLAGS=-j8
-ARG BUILD_ID=dev
-ENV PREFIX=${PREFIX} MAKEFLAGS=${MAKEFLAGS} BUILD_ID=${BUILD_ID} \
+ENV PREFIX=${PREFIX} MAKEFLAGS=${MAKEFLAGS} \
     RUSTUP_HOME=/opt/rustup CARGO_HOME=/opt/cargo \
     PATH=/opt/cargo/bin:/opt/ffmpeg/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 RUN apk add --no-cache bash curl ca-certificates jq build-base pkgconf yasm nasm \
@@ -23,8 +22,17 @@ RUN set -eux; arch=$(apk --print-arch); \
     echo "$sha  /tmp/rustup-init" | sha256sum -c -; chmod +x /tmp/rustup-init; \
     toolchain=$(jq -er '.tools.rust_toolchain.version' versions.lock); \
     /tmp/rustup-init -y --profile minimal --default-toolchain "$toolchain"; \
+    rustc --version
+RUN set -eux; arch=$(apk --print-arch); \
+    case "$arch" in x86_64) key=cargo_c_x86_64;; aarch64) key=cargo_c_aarch64;; *) exit 1;; esac; \
+    url=$(jq -er --arg k "$key" '.tools[$k].url' versions.lock); \
+    sha=$(jq -er --arg k "$key" '.tools[$k].sha256' versions.lock); \
+    curl --fail --location --show-error --retry 3 -o /tmp/cargo-c.tar.gz "$url"; \
+    echo "$sha  /tmp/cargo-c.tar.gz" | sha256sum -c -; \
+    tar --no-same-owner -xzf /tmp/cargo-c.tar.gz -C "$CARGO_HOME/bin" cargo-capi cargo-cbuild cargo-cinstall cargo-ctest; \
+    rm /tmp/cargo-c.tar.gz; \
     cargo_c=$(jq -er '.tools.cargo_c.version' versions.lock); \
-    cargo install cargo-c --version "$cargo_c" --locked; rustc --version; cargo cinstall --version
+    cargo cinstall --version | grep -F "$cargo_c"
 RUN set -eux; url=$(jq -er '.tools.meson.url' versions.lock); sha=$(jq -er '.tools.meson.sha256' versions.lock); \
     wheel="/tmp/$(basename "$url")"; curl --fail --location --show-error --retry 3 -o "$wheel" "$url"; \
     echo "$sha  $wheel" | sha256sum -c -; \
@@ -45,6 +53,8 @@ COPY --chmod=755 build-scripts/35-formats.sh /build/build-scripts/
 RUN /build/build-scripts/35-formats.sh
 COPY --chmod=755 prepare-ffmpeg.sh /build/prepare-ffmpeg.sh
 RUN /build/prepare-ffmpeg.sh
+# Declared late: these change on every build and would invalidate all earlier layers.
+ARG BUILD_ID=dev
 ARG BUILD_DATE=unknown
 COPY --chmod=755 build-scripts/90-ffmpeg.sh /build/build-scripts/
 RUN /build/build-scripts/90-ffmpeg.sh || { tail -200 /src/ffmpeg/ffbuild/config.log; exit 1; }

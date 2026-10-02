@@ -102,7 +102,7 @@ def main():
     meson_meta = request("https://pypi.org/pypi/meson/json")
     meson_wheel = next(x for x in meson_meta["urls"] if x["packagetype"] == "bdist_wheel")
     tools["meson"] = {"version": meson_meta["info"]["version"], "url": meson_wheel["url"], "sha256": meson_wheel["digests"]["sha256"]}
-    for key in ("rustup_x86_64", "rustup_aarch64"):
+    for key in ("rustup_x86_64", "rustup_aarch64", "cargo_c_x86_64", "cargo_c_aarch64"):
         tools[key]["sha256"] = digest(tools[key]["url"])
     result = {"schema": 1, "updated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
               "alpine": old.get("alpine", {"version":"3.20"}), "tools": tools, "sources": dict(sorted(sources.items()))}

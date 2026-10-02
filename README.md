@@ -93,9 +93,9 @@ ENTRYPOINT ["/ffmpeg"]
 
 ## Reproducible update model
 
-Normal builds do not discover newer upstream releases. `versions.lock` pins Alpine (including its multi-architecture image digest), the Rust toolchain, cargo-c, source tags/revisions, source archive URLs and their SHA-256 values, and x264's explicit upstream `stable` revision. Source archives listed in the lock are checksum-verified before extraction.
+Normal builds do not discover newer upstream releases. `versions.lock` pins Alpine (including its multi-architecture image digest), the Rust toolchain, the prebuilt cargo-c release binaries and their SHA-256 values, source tags/revisions, source archive URLs and their SHA-256 values, and x264's explicit upstream `stable` revision. Source archives listed in the lock are checksum-verified before extraction.
 
-The lock makes dependency updates explicit and reviewable, but it does not promise bit-for-bit reproducible output. Alpine packages are installed from the pinned image's configured repositories, rustup downloads the selected toolchain components, and `cargo install --locked` resolves cargo-c using its published Cargo lock. Published artifacts should therefore retain the lock file, binary checksums, build configuration, and CI provenance.
+The lock makes dependency updates explicit and reviewable, but it does not promise bit-for-bit reproducible output. Alpine packages are installed from the pinned image's configured repositories and rustup downloads the selected toolchain components. Published artifacts should therefore retain the lock file, binary checksums, build configuration, and CI provenance.
 
 The Dockerfile intentionally has no default Alpine image. The Makefile reads the version and multi-architecture digest from `versions.lock` and supplies `ALPINE_IMAGE` to Buildx, so `make build`, `make verify`, `make export`, and CI all consume the same locked base image. A raw `docker build` must provide that argument explicitly; using the Make targets is recommended.
 
@@ -123,7 +123,7 @@ make build PLATFORM=linux/arm64 BUILD_ID=update-test
 make build PLATFORM=linux/amd64 BUILD_ID=update-test-amd64
 ```
 
-`update-foundations.sh` resolves Alpine's latest stable point release and multi-architecture image digest, the stable Rust toolchain, cargo-c's latest stable crate, LAME's best stable source release, and the current rustup installer checksums. Preview only those changes with `./update-foundations.sh --dry-run`, or apply them with `make update-foundations`.
+`update-foundations.sh` resolves Alpine's latest stable point release and multi-architecture image digest, the stable Rust toolchain, cargo-c's latest GitHub release (with checksums for its prebuilt musl binaries), LAME's best stable source release, and the current rustup installer checksums. Preview only those changes with `./update-foundations.sh --dry-run`, or apply them with `make update-foundations`.
 
 `update-lock.py` updates the remaining source dependencies and Meson. `make update-lock-all` runs both updaters. The updater selects stable semantic-version tags. x264 is the documented exception because it has no numbered release stream; it records the exact commit at the upstream-maintained `stable` branch. Review and commit the lock diff before publishing artifacts; neither normal builds nor CI update it implicitly.
 
