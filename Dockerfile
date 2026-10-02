@@ -37,6 +37,8 @@ RUN apk add --no-cache gperf
 COPY --chmod=755 build-scripts/30-subtitles.sh /build/build-scripts/
 RUN /build/build-scripts/30-subtitles.sh
 RUN apk add --no-cache util-linux-dev util-linux-static
+# libvmaf embeds its built-in models with `xxd -i IN OUT`; BusyBox xxd rejects OUT.
+RUN apk add --no-cache xxd
 COPY --chmod=755 build-scripts/37-quality.sh /build/build-scripts/
 RUN /build/build-scripts/37-quality.sh
 COPY --chmod=755 build-scripts/35-formats.sh /build/build-scripts/

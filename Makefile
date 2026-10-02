@@ -37,6 +37,6 @@ update-lock-all:
 	python3 update-lock.py
 validate-lock:
 	python3 -m json.tool versions.lock >/dev/null
-	! rg -n '"sha256": "pending"|git clone|curl .*[|]' versions.lock Dockerfile build-scripts prepare-ffmpeg.sh
+	@status=0; grep -rEn '"sha256": "pending"|git clone|curl .*[|]' versions.lock Dockerfile build-scripts prepare-ffmpeg.sh || status=$$?; test $$status -eq 1
 clean:
 	rm -rf dist
