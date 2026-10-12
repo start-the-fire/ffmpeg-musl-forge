@@ -52,6 +52,19 @@ jobs:
             BUILD_DATE="$build_date"
           sha256sum dist/ffmpeg-* dist/ffprobe-* dist/raw2bmx-* dist/bmxtranswrap-* > dist/SHA256SUMS
           cp versions.lock dist/versions.lock
+          {
+            printf 'FFmpeg Musl Forge build information\n'
+            printf 'Platform: %s\n' '${{ matrix.platform }}'
+            printf 'Artifact: %s\n' '${{ matrix.artifact }}'
+            printf 'Build ID: %s\n' "${GITHUB_SHA::12}"
+            printf 'Build date: %s\n\n' "$build_date"
+            printf '%s\n' 'ffmpeg -version:'
+            find dist -maxdepth 1 -type f -name 'ffmpeg-*' -print -quit | xargs -r -n1 sh -c '"$0" -version'
+            printf '\n%s\n' 'ffprobe -version:'
+            find dist -maxdepth 1 -type f -name 'ffprobe-*' -print -quit | xargs -r -n1 sh -c '"$0" -version'
+            printf '\n%s\n' 'Binary files:'
+            find dist -maxdepth 1 -type f \( -name 'ffmpeg-*' -o -name 'ffprobe-*' -o -name 'raw2bmx-*' -o -name 'bmxtranswrap-*' \) -printf '%f\n' | sort
+          } > dist/BUILDINFO.txt
       - uses: actions/upload-artifact@v6
         with:
           name: ffmpeg-bmx-${{ matrix.artifact }}
@@ -106,33 +119,48 @@ jobs:
           cp release/linux-amd64/versions.lock release/versions.lock
           cp release/linux-amd64/SHA256SUMS release/SHA256SUMS-linux-amd64
           cp release/linux-arm64/SHA256SUMS release/SHA256SUMS-linux-arm64
+          cp release/linux-amd64/BUILDINFO.txt release/BUILDINFO-linux-amd64.txt
+          cp release/linux-arm64/BUILDINFO.txt release/BUILDINFO-linux-arm64.txt
           find release/linux-amd64 release/linux-arm64 -maxdepth 1 -type f \
-            ! -name 'SHA256SUMS' ! -name 'versions.lock' -exec cp {} release/ \;
+            ! -name 'SHA256SUMS' ! -name 'versions.lock' ! -name 'BUILDINFO.txt' -exec cp {} release/ \;
           (
             cd release
             sha256sum ffmpeg-* ffprobe-* raw2bmx-* bmxtranswrap-* > SHA256SUMS
           )
-          cat > release/RELEASE_NOTES.md <<'EOF'
-          # FFmpeg Musl Forge ${{ steps.metadata.outputs.tag }}
+          {
+            printf '%s\n\n' '# FFmpeg Musl Forge ${{ steps.metadata.outputs.tag }}'
+            printf '%s\n\n' 'Static, CPU-only musl binaries for Linux amd64 and arm64, built from the pinned sources in this repository.'
+            printf '%s\n' '## Build summary'
+            printf '%s\n' ''
+            printf '| Field | Value |\n| --- | --- |\n'
+            printf '| FFmpeg version | `%s` |\n' '${{ steps.metadata.outputs.ffmpeg_version }}'
+            printf '| Build date (UTC) | `%s` |\n' '${{ steps.metadata.outputs.build_date }}'
+            printf '| Git commit | `%s` |\n' "${GITHUB_SHA}"
+            printf '| Architectures | `linux/amd64`, `linux/arm64` |\n\n'
 
-          FFmpeg ${{ steps.metadata.outputs.ffmpeg_version }} static musl binaries,
-          built on ${{ steps.metadata.outputs.build_date }} for Linux amd64 and arm64.
+            printf '%s\n\n' '## Included binaries'
+            printf '%s\n' '- `ffmpeg` — FFmpeg command-line encoder, decoder, and media processor'
+            printf '%s\n' '- `ffprobe` — media stream and container inspection tool'
+            printf '%s\n' '- `raw2bmx` — MXF essence and metadata utility'
+            printf '%s\n\n' '- `bmxtranswrap` — MXF rewrapping utility'
+            printf '%s\n\n' 'The filenames include the upstream component version, UTC build date, and target architecture. The exact `ffmpeg -version` and `ffprobe -version` output for each architecture is included in the `BUILDINFO-*.txt` assets.'
 
-          Included binaries:
-
-          - ffmpeg
-          - ffprobe
-          - raw2bmx
-          - bmxtranswrap
-
-          The accompanying `versions.lock` records the exact dependency versions
-          and checksums used for this build.
-          EOF
+            printf '%s\n\n' '## Dependency versions'
+            printf '%s\n\n' 'The attached `versions.lock` is the authoritative bill of materials: it records the exact version, revision, source URL, and SHA-256 for the Alpine base, toolchain, FFmpeg, BMX, and every statically linked dependency.'
+            printf '| Component | Version | Revision |\n| --- | --- | --- |\n'
+            jq -r '.sources | to_entries | sort_by(.key)[] | "| \(.key) | \(.value.version) | \(.value.revision // "—") |"' release/versions.lock
+            printf '\n%s\n\n' '## Integrity and provenance'
+            printf '%s\n' '- `SHA256SUMS` contains checksums for all release binaries.'
+            printf '%s\n' '- `SHA256SUMS-linux-amd64` and `SHA256SUMS-linux-arm64` contain the checksums produced independently on each build runner.'
+            printf '%s\n' '- `BUILDINFO-linux-amd64.txt` and `BUILDINFO-linux-arm64.txt` contain the complete FFmpeg/FFprobe version output and the binary filenames for each target.'
+            printf '%s\n' '- The tagged repository source and attached `versions.lock` identify the build inputs.'
+          } > release/RELEASE_NOTES.md
       - name: Publish GitHub release
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.metadata.outputs.tag }}
           body_path: release/RELEASE_NOTES.md
+          generate_release_notes: true
           files: |
             release/ffmpeg-*
             release/ffprobe-*
@@ -142,4 +170,6 @@ jobs:
             release/SHA256SUMS-linux-amd64
             release/SHA256SUMS-linux-arm64
             release/versions.lock
+            release/BUILDINFO-linux-amd64.txt
+            release/BUILDINFO-linux-arm64.txt
             release/RELEASE_NOTES.md
