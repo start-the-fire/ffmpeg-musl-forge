@@ -173,7 +173,7 @@ Every binary release should provide, for each architecture:
 
 1. The `ffmpeg`, `ffprobe`, `raw2bmx`, and `bmxtranswrap` binaries and `SHA256SUMS`.
 2. The exact committed `versions.lock` and tagged build scripts used to produce them.
-3. `BUILDINFO.txt` containing the complete `ffmpeg -version` and `ffprobe -version` output, including the configure line.
+3. `BUILDINFO-linux-amd64.txt` and `BUILDINFO-linux-arm64.txt` containing the complete `ffmpeg -version` and `ffprobe -version` output, including the configure line, plus the exact binary filenames for each architecture.
 4. The complete GPLv3 text and the exact copyright, license, attribution, and notice files for all included components. A license-family summary alone is insufficient.
 5. Corresponding source that matches the binaries, including FFmpeg, all statically linked dependencies, applicable vendored Rust crates, local modifications, and the scripts needed to rebuild them. The safest approach is to attach this source bundle to the same GitHub release as the binaries; `versions.lock` and upstream links alone are not a durable replacement for corresponding source.
 6. A clear statement on the GitHub release page that the repository code is MIT-licensed while the distributed binaries are GPL-3.0-or-later.
