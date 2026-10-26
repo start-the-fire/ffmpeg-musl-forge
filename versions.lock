@@ -1,24 +1,24 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-06T08:18:36Z",
+  "updated_at": "2026-10-26T09:04:49+00:00",
   "alpine": {
-    "version": "3.24.2",
-    "digest": "sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6"
+    "version": "3.24.3",
+    "digest": "sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a"
   },
   "tools": {
     "rust_toolchain": {
-      "version": "1.99.0"
+      "version": "1.99.1"
     },
     "cargo_c": {
-      "version": "0.10.25"
+      "version": "0.10.26"
     },
     "cargo_c_x86_64": {
-      "url": "https://github.com/lu-zero/cargo-c/releases/download/v0.10.25/cargo-c-x86_64-unknown-linux-musl.tar.gz",
-      "sha256": "2fbf0d1b56a9a0b52431c2a159d9544b4b0729f2eabaed3904a41cce0e8cd4b0"
+      "url": "https://github.com/lu-zero/cargo-c/releases/download/v0.10.26/cargo-c-x86_64-unknown-linux-musl.tar.gz",
+      "sha256": "685fab5a2e1539c5075cea21c42469ee5a489d877dbdbf7adccf4bb631d77545"
     },
     "cargo_c_aarch64": {
-      "url": "https://github.com/lu-zero/cargo-c/releases/download/v0.10.25/cargo-c-aarch64-unknown-linux-musl.tar.gz",
-      "sha256": "8df4475f48d7dc4d6a7fcd60bf96d569e5dabc24dce98a4a189419822c594257"
+      "url": "https://github.com/lu-zero/cargo-c/releases/download/v0.10.26/cargo-c-aarch64-unknown-linux-musl.tar.gz",
+      "sha256": "68a45c967438240b64f2806639098c89df676c0152e855f5122cf5173204ce6c"
     },
     "meson": {
       "version": "1.12.1",
@@ -27,11 +27,11 @@
     },
     "rustup_x86_64": {
       "url": "https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-musl/rustup-init",
-      "sha256": "331228566cc931f32cd684f9bebc5956a5e5d7394c8d5de595f196a658ab98e6"
+      "sha256": "2ba97d668c06dc4b1884f2a3fa6f4cf14b9bd0c1db379af7e4f87a705ff19edd"
     },
     "rustup_aarch64": {
       "url": "https://static.rust-lang.org/rustup/dist/aarch64-unknown-linux-musl/rustup-init",
-      "sha256": "1ddf36182ac5d1782dbeefcb9bea7f5f9412d88f4a0d5047b1564a223624e8c6"
+      "sha256": "7fdbb23acf6495efee2e371580c52b365917551b4835090a225c44ac30915235"
     }
   },
   "sources": {
@@ -43,10 +43,10 @@
       "update": "stable-release"
     },
     "brotli": {
-      "version": "1.2.0",
-      "revision": "v1.2.0",
-      "url": "https://github.com/google/brotli/archive/refs/tags/v1.2.0.tar.gz",
-      "sha256": "816c96e8e8f193b40151dad7e8ff37b1221d019dbcb9c35cd3fadbfe6477dfec",
+      "version": "1.2.1",
+      "revision": "v1.2.1",
+      "url": "https://github.com/google/brotli/archive/refs/tags/v1.2.1.tar.gz",
+      "sha256": "98d35d11a78dc453aebb7d10c3748f3f73ff78c8267c0dc697b8631f67bf7e8f",
       "update": "stable-release"
     },
     "dav1d": {
@@ -57,10 +57,10 @@
       "update": "stable-release"
     },
     "expat": {
-      "version": "2.8.5",
-      "revision": "R_2_8_5",
-      "url": "https://github.com/libexpat/libexpat/archive/refs/tags/R_2_8_5.tar.gz",
-      "sha256": "fd022c541a189bd5bee042a22188351b31e39b9389c2525fa98c28bd05c9ef21",
+      "version": "2.9.0",
+      "revision": "R_2_9_0",
+      "url": "https://github.com/libexpat/libexpat/archive/refs/tags/R_2_9_0.tar.gz",
+      "sha256": "6e8ce7b52ebbaa423c59becc7cf1e6875c42e49228c062ac8123c10e700cec27",
       "update": "stable-release"
     },
     "ffmpeg": {
@@ -77,18 +77,11 @@
       "sha256": "9ae01e1d53acdef56010c5451cd34aa41d325b2faccd8606448d8fa01b2496b3",
       "update": "stable-release"
     },
-    "highway": {
-      "version": "1.4.0",
-      "revision": "1.4.0",
-      "url": "https://github.com/google/highway/archive/refs/tags/1.4.0.tar.gz",
-      "sha256": "e72241ac9524bb653ae52ced768b508045d4438726a303f10181a38f764a453c",
-      "update": "stable-release"
-    },
     "freetype": {
-      "version": "2.14.3",
-      "revision": "VER-2-14-3",
-      "url": "https://github.com/freetype/freetype/archive/refs/tags/VER-2-14-3.tar.gz",
-      "sha256": "dc49de6b01a266eef4876a4dd34d9842c475d3e28ff2eff63bd2fb760ab56261",
+      "version": "2.15.0",
+      "revision": "VER-2-15-0",
+      "url": "https://github.com/freetype/freetype/archive/refs/tags/VER-2-15-0.tar.gz",
+      "sha256": "87c7f1f8699b91e89f773f7dcfa505b044e1dae67f62a55d4e29c3afdcac4fb8",
       "update": "stable-release"
     },
     "fribidi": {
@@ -99,10 +92,17 @@
       "update": "stable-release"
     },
     "harfbuzz": {
-      "version": "14.5.0",
-      "revision": "14.5.0",
-      "url": "https://github.com/harfbuzz/harfbuzz/archive/refs/tags/14.5.0.tar.gz",
-      "sha256": "97ec7488a46b974e18e08ee774af93173e7e1dbf738424796eb315ebcb735ec5",
+      "version": "15.0.0",
+      "revision": "15.0.0",
+      "url": "https://github.com/harfbuzz/harfbuzz/archive/refs/tags/15.0.0.tar.gz",
+      "sha256": "fe4b8bad7afbbae75d61b2095c267c98f4ed04fe4a117680130ed253d2732efe",
+      "update": "stable-release"
+    },
+    "highway": {
+      "version": "1.4.0",
+      "revision": "1.4.0",
+      "url": "https://github.com/google/highway/archive/refs/tags/1.4.0.tar.gz",
+      "sha256": "e72241ac9524bb653ae52ced768b508045d4438726a303f10181a38f764a453c",
       "update": "stable-release"
     },
     "lame": {
@@ -112,11 +112,18 @@
       "sha256": "3df5124d5ad3a98312ffd7ba6a9b36230e4f8a3e66d3ce0f425e336c32d216eb",
       "update": "stable-release"
     },
+    "lcms2": {
+      "version": "2.19.1",
+      "revision": "lcms2.19.1",
+      "url": "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.19.1.tar.gz",
+      "sha256": "267705e278e2f7c2fb886c259dadcbaeb2be52748bcbc71c79f08aacacb7a709",
+      "update": "stable-release"
+    },
     "libaom": {
-      "version": "3.15.1",
-      "revision": "v3.15.1",
-      "url": "https://storage.googleapis.com/aom-releases/libaom-3.15.1.tar.gz",
-      "sha256": "8ca0c52746174603500f0adb6f2a215d69c9ca2aab2acb3caa06fb791d8d01bf",
+      "version": "3.15.2",
+      "revision": "v3.15.2",
+      "url": "https://storage.googleapis.com/aom-releases/libaom-3.15.2.tar.gz",
+      "sha256": "67bb54b245f33ed98600e08269e6139986e48114e14042474ddd8885801dfddc",
       "update": "stable-release"
     },
     "libass": {
@@ -131,13 +138,6 @@
       "revision": "v0.12.0",
       "url": "https://github.com/libjxl/libjxl/archive/refs/tags/v0.12.0.tar.gz",
       "sha256": "03e9be69a30be4011f559da75328b6d7cea8ad921fabfbd551ce10bf45cdc992",
-      "update": "stable-release"
-    },
-    "lcms2": {
-      "version": "2.19.1",
-      "revision": "lcms2.19.1",
-      "url": "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.19.1.tar.gz",
-      "sha256": "267705e278e2f7c2fb886c259dadcbaeb2be52748bcbc71c79f08aacacb7a709",
       "update": "stable-release"
     },
     "libvpx": {
@@ -163,10 +163,10 @@
       "archive": "upstream-release-tarball"
     },
     "openh264": {
-      "version": "2.6.0",
-      "revision": "v2.6.0",
-      "url": "https://github.com/cisco/openh264/archive/refs/tags/v2.6.0.tar.gz",
-      "sha256": "558544ad358283a7ab2930d69a9ceddf913f4a51ee9bf1bfb9e377322af81a69",
+      "version": "2.7.0",
+      "revision": "v2.7.0",
+      "url": "https://github.com/cisco/openh264/archive/refs/tags/v2.7.0.tar.gz",
+      "sha256": "5178775c8b440073e70920e97d195efff721c0e56d0a78cc82c919e95d54924d",
       "update": "stable-release"
     },
     "openjpeg": {
@@ -235,13 +235,6 @@
       "sha256": "dd43d061d59dbc0d9b9ae5b99cb40672877dd811646228938f065798939ee174",
       "update": "stable-release"
     },
-    "zimg": {
-      "version": "3.0.6",
-      "revision": "release-3.0.6",
-      "url": "https://github.com/sekrit-twc/zimg/archive/refs/tags/release-3.0.6.tar.gz",
-      "sha256": "be89390f13a5c9b2388ce0f44a5e89364a20c1c57ce46d382b1fcc3967057577",
-      "update": "stable-release"
-    },
     "x264": {
       "version": "b35605ace3dd",
       "revision": "b35605ace3ddf7c1a5d67a2eb553f034aef41d55",
@@ -254,6 +247,13 @@
       "revision": "4.2",
       "url": "https://bitbucket.org/multicoreware/x265_git/get/4.2.tar.gz",
       "sha256": "0a3d41f6b4e2fe5a49d783d6631bd1a49c44cdf999074a3ff09e2cb71ac8ed33",
+      "update": "stable-release"
+    },
+    "zimg": {
+      "version": "3.0.6",
+      "revision": "release-3.0.6",
+      "url": "https://github.com/sekrit-twc/zimg/archive/refs/tags/release-3.0.6.tar.gz",
+      "sha256": "be89390f13a5c9b2388ce0f44a5e89364a20c1c57ce46d382b1fcc3967057577",
       "update": "stable-release"
     }
   }
