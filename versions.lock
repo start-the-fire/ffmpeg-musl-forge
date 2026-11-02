@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "updated_at": "2026-10-26T09:04:49+00:00",
+  "updated_at": "2026-11-02T11:21:57+00:00",
   "alpine": {
     "version": "3.24.3",
     "digest": "sha256:be2656061b536c1883c4034790e21d0a09c5aaaf51968b89368a3c0371ea2c9a"
@@ -57,10 +57,10 @@
       "update": "stable-release"
     },
     "expat": {
-      "version": "2.9.0",
-      "revision": "R_2_9_0",
-      "url": "https://github.com/libexpat/libexpat/archive/refs/tags/R_2_9_0.tar.gz",
-      "sha256": "6e8ce7b52ebbaa423c59becc7cf1e6875c42e49228c062ac8123c10e700cec27",
+      "version": "2.10.0",
+      "revision": "R_2_10_0",
+      "url": "https://github.com/libexpat/libexpat/archive/refs/tags/R_2_10_0.tar.gz",
+      "sha256": "b3644a12f62d7762b62c444f69d169ba0234f13138d0240244bca64cbe35286f",
       "update": "stable-release"
     },
     "ffmpeg": {
@@ -85,10 +85,10 @@
       "update": "stable-release"
     },
     "fribidi": {
-      "version": "1.0.17",
-      "revision": "v1.0.17",
-      "url": "https://github.com/fribidi/fribidi/archive/refs/tags/v1.0.17.tar.gz",
-      "sha256": "ab015bb040b2ff4bf815813c21948947dad1e0186473359e99a8881c79878d5d",
+      "version": "1.0.18",
+      "revision": "v1.0.18",
+      "url": "https://github.com/fribidi/fribidi/archive/refs/tags/v1.0.18.tar.gz",
+      "sha256": "01f15887e32a9d84503121e2da031f166ac07ca8e0c350aef2dbbeaad0f75b1d",
       "update": "stable-release"
     },
     "harfbuzz": {
@@ -113,17 +113,17 @@
       "update": "stable-release"
     },
     "lcms2": {
-      "version": "2.19.1",
-      "revision": "lcms2.19.1",
-      "url": "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.19.1.tar.gz",
-      "sha256": "267705e278e2f7c2fb886c259dadcbaeb2be52748bcbc71c79f08aacacb7a709",
+      "version": "2.20",
+      "revision": "lcms2.20",
+      "url": "https://github.com/mm2/Little-CMS/archive/refs/tags/lcms2.20.tar.gz",
+      "sha256": "49908a4492fe7fc886517d636474bd953ebe698d38ecd3ee5862dfa308dd43ae",
       "update": "stable-release"
     },
     "libaom": {
-      "version": "3.15.2",
-      "revision": "v3.15.2",
-      "url": "https://storage.googleapis.com/aom-releases/libaom-3.15.2.tar.gz",
-      "sha256": "67bb54b245f33ed98600e08269e6139986e48114e14042474ddd8885801dfddc",
+      "version": "3.15.3",
+      "revision": "v3.15.3",
+      "url": "https://storage.googleapis.com/aom-releases/libaom-3.15.3.tar.gz",
+      "sha256": "12c01dc731ed7b5a999e28120b45bf58a002ba3435a4ba2cfbc1e084a27c9c04",
       "update": "stable-release"
     },
     "libass": {
@@ -192,10 +192,10 @@
       "update": "stable-release"
     },
     "svt_av1": {
-      "version": "4.2.0",
-      "revision": "v4.2.0",
-      "url": "https://github.com/AOMediaCodec/SVT-AV1/archive/refs/tags/v4.2.0.tar.gz",
-      "sha256": "d9cb8d5fccbed565d038ae304cb00c5610f1f62388868102ca22132e7844921b",
+      "version": "4.3.0",
+      "revision": "v4.3.0",
+      "url": "https://github.com/AOMediaCodec/SVT-AV1/archive/refs/tags/v4.3.0.tar.gz",
+      "sha256": "687da7bc19b7f1bc8a18325d4ce2a468ecb41e3e59a807a5bd3393c537c95363",
       "update": "stable-release"
     },
     "theora": {
@@ -207,10 +207,10 @@
       "archive": "upstream-release-tarball"
     },
     "uriparser": {
-      "version": "1.0.2",
-      "revision": "uriparser-1.0.2",
-      "url": "https://github.com/uriparser/uriparser/archive/refs/tags/uriparser-1.0.2.tar.gz",
-      "sha256": "2dadd117a27919db41b84dff1ec7e3347fae8e09cfbb868505f2ff44287b57bf",
+      "version": "1.0.3",
+      "revision": "uriparser-1.0.3",
+      "url": "https://github.com/uriparser/uriparser/archive/refs/tags/uriparser-1.0.3.tar.gz",
+      "sha256": "cceea60fa86109cdde5c06ef878f38c18394cd189abf4a4dbaf1d59cfaf8a03d",
       "update": "stable-release"
     },
     "vmaf": {
