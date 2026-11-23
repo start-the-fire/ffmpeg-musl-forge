@@ -1,13 +1,13 @@
 {
   "schema": 1,
-  "updated_at": "2026-11-09T11:44:47+00:00",
+  "updated_at": "2026-11-23T13:02:25+00:00",
   "alpine": {
     "version": "3.24.4",
     "digest": "sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf"
   },
   "tools": {
     "rust_toolchain": {
-      "version": "1.99.1"
+      "version": "1.100.0"
     },
     "cargo_c": {
       "version": "0.10.26"
@@ -50,10 +50,10 @@
       "update": "stable-release"
     },
     "dav1d": {
-      "version": "1.5.4",
-      "revision": "1.5.4",
-      "url": "https://github.com/videolan/dav1d/archive/refs/tags/1.5.4.tar.gz",
-      "sha256": "a1d5b63d2d38ec9bd03acf643caa51fa22edd1e89c5a109c4807717216bbec07",
+      "version": "1.5.5",
+      "revision": "1.5.5",
+      "url": "https://github.com/videolan/dav1d/archive/refs/tags/1.5.5.tar.gz",
+      "sha256": "76ad07ab121d68407b64a6f50f540c90ca0b066d178bdc9adbea14acf4ce25a9",
       "update": "stable-release"
     },
     "expat": {
@@ -64,17 +64,17 @@
       "update": "stable-release"
     },
     "ffmpeg": {
-      "version": "9.0.2",
-      "revision": "n9.0.2",
-      "url": "https://github.com/FFmpeg/FFmpeg/archive/refs/tags/n9.0.2.tar.gz",
-      "sha256": "6e374ed621e48faa40639307dff48ba6fe574a509977956d2cce9669b7cc27e9",
+      "version": "9.1",
+      "revision": "n9.1",
+      "url": "https://github.com/FFmpeg/FFmpeg/archive/refs/tags/n9.1.tar.gz",
+      "sha256": "0ac7c9b9806b58eda00a528dcba316a2f33d291d949438900efa811d04b051bd",
       "update": "stable-release"
     },
     "fontconfig": {
-      "version": "2.18.3",
-      "revision": "2.18.3",
-      "url": "https://github.com/fontconfig/fontconfig/archive/refs/tags/2.18.3.tar.gz",
-      "sha256": "9ae01e1d53acdef56010c5451cd34aa41d325b2faccd8606448d8fa01b2496b3",
+      "version": "2.18.4",
+      "revision": "2.18.4",
+      "url": "https://github.com/fontconfig/fontconfig/archive/refs/tags/2.18.4.tar.gz",
+      "sha256": "cecf4125622ed674d5630b6deaeff43e3695afe197bdcc560363a1820d858112",
       "update": "stable-release"
     },
     "freetype": {
@@ -92,10 +92,10 @@
       "update": "stable-release"
     },
     "harfbuzz": {
-      "version": "15.1.0",
-      "revision": "15.1.0",
-      "url": "https://github.com/harfbuzz/harfbuzz/archive/refs/tags/15.1.0.tar.gz",
-      "sha256": "5c057929413b8664592fea67edea5c2c47b4ffb0bf5f4accb5164bc6acc69d94",
+      "version": "15.2.0",
+      "revision": "15.2.0",
+      "url": "https://github.com/harfbuzz/harfbuzz/archive/refs/tags/15.2.0.tar.gz",
+      "sha256": "4e0a74d85b38a5ade5e4556e00d07fbfb9fa6b0ef24816949d46518fea89e2df",
       "update": "stable-release"
     },
     "highway": {
@@ -134,10 +134,10 @@
       "update": "stable-release"
     },
     "libjxl": {
-      "version": "0.12.0",
-      "revision": "v0.12.0",
-      "url": "https://github.com/libjxl/libjxl/archive/refs/tags/v0.12.0.tar.gz",
-      "sha256": "03e9be69a30be4011f559da75328b6d7cea8ad921fabfbd551ce10bf45cdc992",
+      "version": "0.13.0",
+      "revision": "v0.13.0",
+      "url": "https://github.com/libjxl/libjxl/archive/refs/tags/v0.13.0.tar.gz",
+      "sha256": "24d18c9af2d1f5a17730b3f8d3f70a5c16e5ac303f5d9d5fe9dc00cf7ca82af2",
       "update": "stable-release"
     },
     "libvpx": {
@@ -192,10 +192,10 @@
       "update": "stable-release"
     },
     "svt_av1": {
-      "version": "4.3.0",
-      "revision": "v4.3.0",
-      "url": "https://github.com/AOMediaCodec/SVT-AV1/archive/refs/tags/v4.3.0.tar.gz",
-      "sha256": "687da7bc19b7f1bc8a18325d4ce2a468ecb41e3e59a807a5bd3393c537c95363",
+      "version": "4.3.1",
+      "revision": "v4.3.1",
+      "url": "https://github.com/AOMediaCodec/SVT-AV1/archive/refs/tags/v4.3.1.tar.gz",
+      "sha256": "ad94f481cb74821af183f37f4533fc52324b76ffbd98ec7723e282bab0cf9fc4",
       "update": "stable-release"
     },
     "theora": {
